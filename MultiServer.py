@@ -924,7 +924,8 @@ class Ashipelago:
     max_size: int = 16 * 1024 * 1024
     server = None
     server_task: typing.Optional["asyncio.Task[None]"] = None
-
+    room_is_tracked = False
+    
     def __init__(self, ctx: Context):
         self.ctx = ctx
         self.webhook_queue = queue.SimpleQueue()
@@ -939,8 +940,9 @@ class Ashipelago:
             self.webhook_url = webhook_settings["WEBHOOK_URL"]
         if "WEBHOOK_DEBUG" in webhook_settings:
             self.webhook_is_debug = webhook_settings["WEBHOOK_DEBUG"]
-
-        if is_tracked > 0:
+        self.room_is_tracked = is_tracked > 0
+        
+        if self.room_is_tracked:
             if webhook_settings["WEBHOOK_AUTO_START"]:
                 self.webhook_active = True
                 self.webhook_thread = self.WebhookThread(self.ctx, self.webhook_url, self.webhook_is_debug)
@@ -958,6 +960,9 @@ class Ashipelago:
 
     # Shuts down a room that has been closed
     def shutdown_room(self):
+        if not self.room_is_tracked:
+            return
+        
         connection = {
             "event": "shutdown_room",
             "room": self.room_url,
@@ -968,6 +973,9 @@ class Ashipelago:
 
     # Custom client command used to gift a hint from one player to another
     def gift_hint(self, player_name: str, client_processor: ClientMessageProcessor) -> bool:
+        if not self.room_is_tracked:
+            return False
+        
         if self.use_room_hints:
             client_processor.output(f"The room is currently set to using a shared pool of hints. There is no need to gift any hints, just use the !hint command as needed!")
             return False
@@ -997,6 +1005,9 @@ class Ashipelago:
 
     # Custom client command used to retrieve item flag information about a desired item
     def item_info(self, item: str, client_processor: ClientMessageProcessor):
+        if not self.room_is_tracked:
+            return
+        
         game_items: dict[str, int] = {}
 
         for slot, game in self.ctx.games.items():
@@ -1033,6 +1044,9 @@ class Ashipelago:
 
     # Pushes a Goal Complete event to Dynxbot
     def push_goal_completion(self, client: Client):
+        if not self.room_is_tracked:
+            return
+        
         goal = {
             "event": "goal_complete",
             "room": self.room_url,
@@ -1044,6 +1058,9 @@ class Ashipelago:
 
     # Pushes a Hint event to Dynxbot
     def push_hint(self, ctx: Context, hint: NetUtils.Hint, team: int, recipients: typing.Sequence[int], is_scout: bool):
+        if not self.room_is_tracked:
+            return
+        
         if not hint.found and recipients is None:
             hint_information = {
                 "event": "hint",
@@ -1061,6 +1078,9 @@ class Ashipelago:
 
     # Pushes an Item event to Dynxbot
     def push_item_information(self, item: NetworkItem, team: int, target_player, released: bool):
+        if not self.room_is_tracked:
+            return
+        
         item_information = {
             "event": "item",
             "room": self.room_url,
@@ -1091,6 +1111,9 @@ class Ashipelago:
 
     # Pushes a player connection list to Dynxbot
     def push_player_connection(self):
+        if not self.room_is_tracked:
+            return
+        
         player_list = []
         for team, clients in self.ctx.clients.items():
             for slot, connected_clients in clients.items():
@@ -1125,6 +1148,9 @@ class Ashipelago:
 
     # Helper function used to push the player list when a new room is started
     def _push_player_list(self, is_new: bool, is_tracked: int):
+        if not self.room_is_tracked:
+            return
+        
         if is_new:
             player_list = []
             game_list = {}
@@ -1151,6 +1177,9 @@ class Ashipelago:
 
     # Helper function used to push a Gift Hint event to Dynxbot
     def _push_gifted_hint(self, sender: str, receiver: str):
+        if not self.room_is_tracked:
+            return
+        
         gift_hint = {
             "event": "gift_hint",
             "room": self.room_url,
@@ -1162,6 +1191,9 @@ class Ashipelago:
 
     # Helper function used to push game item data to Dynxbot for local saving
     def _push_game_item_information(self):
+        if not self.room_is_tracked:
+            return
+        
         games = []
         for slot, game in self.ctx.games.items():
             if game in games:
