@@ -4,13 +4,14 @@ from Utils import parse_yaml
 from worlds.subversion.options import SubversionCustomLogic, SubversionShortGame
 import worlds.subversion.options as options_module
 
-from subversion_rando.location_data import pullCSV
+from subversion_rando.location_data import _pullCSV
+
 from subversion_rando.trick_data import Tricks
 
 
 def test_location_names() -> None:
     """ make sure all the names in these lists are valid location names """
-    locations = pullCSV()
+    locations = _pullCSV()
 
     for op, loc_list in SubversionShortGame.location_lists.items():
         for loc_name in loc_list:
