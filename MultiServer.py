@@ -1130,6 +1130,9 @@ class Ashipelago:
 
     # Manually refreshes the room timeout
     def refresh_room(self):
+        if self.room_id is None:
+            return
+
         with db_session:
             room = Room.get(id=self.room_id)
             room.multisave = pickle.dumps(self.ctx.get_save())
