@@ -1131,7 +1131,8 @@ class Ashipelago:
 
     # Manually refreshes the room timeout
     def refresh_room(self):
-        if self.room_id != -1:
+        self.ctx.logger.info("Refreshing room " + self.room_url)
+        if self.room_id > -1:
             return
 
         with db_session:
