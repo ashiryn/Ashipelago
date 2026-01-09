@@ -929,6 +929,7 @@ class Ashipelago:
     def __init__(self, ctx: Context):
         self.ctx = ctx
         self.webhook_queue = queue.SimpleQueue()
+        self.room_id = -1
 
     # Initializes required fields needed to properly manage the newly started room
     def start_room(self, room: Room, is_tracked: int, webhook_settings: dict, admin_password):
@@ -1130,7 +1131,7 @@ class Ashipelago:
 
     # Manually refreshes the room timeout
     def refresh_room(self):
-        if self.room_id is None:
+        if self.room_id != -1:
             return
 
         with db_session:
