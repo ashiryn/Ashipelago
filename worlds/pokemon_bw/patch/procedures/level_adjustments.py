@@ -2,8 +2,8 @@
 from typing import TYPE_CHECKING
 from zipfile import ZipFile
 
-from ...ndspy.rom import NintendoDSRom
-from ...ndspy.narc import NARC
+from ndspy.rom import NintendoDSRom
+from ndspy.narc import NARC
 
 if TYPE_CHECKING:
     from ...rom import PokemonBWPatch

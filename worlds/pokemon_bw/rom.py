@@ -3,7 +3,7 @@ import pathlib
 import zipfile
 from io import BytesIO
 
-from .ndspy import rom as ndspy_rom
+from ndspy import rom as ndspy_rom
 
 import Utils
 from settings import get_settings

@@ -2,8 +2,8 @@
 from typing import TYPE_CHECKING
 from zipfile import ZipFile
 
-from ...ndspy.rom import NintendoDSRom
-from ...ndspy.code import saveOverlayTable
+from ndspy.rom import NintendoDSRom
+from ndspy.code import saveOverlayTable
 import pkgutil
 
 from .. import otpp
