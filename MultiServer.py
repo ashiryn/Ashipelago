@@ -20,6 +20,7 @@ import shlex
 import threading
 import time
 import typing
+import uuid
 import weakref
 import zlib
 
@@ -911,7 +912,7 @@ class Ashipelago:
 
     webhook_active = False
     webhook_queue: queue.SimpleQueue
-    room_id: int
+    room_id = None
     room_url: str
     seed_url: str
     admin_password: str
@@ -929,7 +930,6 @@ class Ashipelago:
     def __init__(self, ctx: Context):
         self.ctx = ctx
         self.webhook_queue = queue.SimpleQueue()
-        self.room_id = -1
 
     # Initializes required fields needed to properly manage the newly started room
     def start_room(self, room: Room, is_tracked: int, webhook_settings: dict, admin_password):
@@ -1132,6 +1132,8 @@ class Ashipelago:
     # Manually refreshes the room timeout
     def refresh_room(self):
         self.ctx.logger.info("Refreshing room " + str(self.room_id))
+        if self.room_id is None:
+            return
 
         with db_session:
             room = Room.get(id=self.room_id)
