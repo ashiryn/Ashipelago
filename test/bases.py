@@ -5,7 +5,6 @@ import unittest
 from argparse import Namespace
 
 from Generate import get_seed_name
-from test.general import gen_steps
 from worlds import AutoWorld
 from worlds.AutoWorld import World, call_all
 
@@ -78,8 +77,6 @@ class WorldTestBase(unittest.TestCase):
         self.multiworld.set_options(args)
         self.multiworld.state = CollectionState(self.multiworld)
         self.world = self.multiworld.worlds[self.player]
-        for step in gen_steps:
-            call_all(self.multiworld, step)
 
     # methods that can be called within tests
     def collect_all_but(self, item_names: typing.Union[str, typing.Iterable[str]],
