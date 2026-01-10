@@ -32,7 +32,7 @@ on:
 jobs:
   unit:
     runs-on: ${{ matrix.os }}
-    name: Test Python ${{ matrix.python.version }} ${{ matrix.os }}
+    name: Test Webhost ${{ matrix.python.version }} ${{ matrix.os }}
 
     strategy:
       fail-fast: false
