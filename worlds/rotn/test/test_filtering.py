@@ -11,7 +11,7 @@ class DifficultyRanges(RotNTestBase):
 
         def test_range(lower, upper, diff):
 
-            songs = rotn_world.rift_collection.getSongsWithSettings(dlc_set, False, lower, upper)
+            songs = rotn_world.rift_collection.getSongsWithSettings(dlc_set, lower, upper)
             for songKey in songs:
                 song = rotn_world.rift_collection.song_items[songKey]
                 if song.diff_easy is -1 and "Easy" in diff and upper <= song.diff_easy <= upper:
