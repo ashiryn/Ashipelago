@@ -1,2 +1,0 @@
-# Rubiks cube
-wow!
