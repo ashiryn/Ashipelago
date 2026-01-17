@@ -31,7 +31,10 @@ class DarkCloudWeb(WebWorld):
 
 class DarkCloudWorld(World):
     """
-    Dark Cloud 1
+    Two great continents, one an advanced civilization driven by progress and technology the other, where nature is the center of all existence and everyone lives harmoniously side by side. Two cultures that have never had contact with each other…until now.
+
+    An ancient evil has been unleashed.
+    Journey on a quest through time to unravel the mysterious tale of the Dark Cloud.
     """
     game = dc1_name
     required_client_version = (0, 6, 1)
