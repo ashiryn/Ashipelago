@@ -41,7 +41,7 @@ jobs:
       run: |
         FILE_CONTENTS=$(cat custom_worlds.txt)
         echo "world_list=$FILE_CONTENTS" >> $GITHUB_OUTPUT
-        shell: bash
+      shell: bash
     - name: Install dependencies
       run: |
         python -m venv venv
