@@ -36,6 +36,12 @@ jobs:
         name: "Custom Worlds ${{ env.NOW }}"
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Read custom .apworlds file
+      id: read_apworlds
+      run: |
+        FILE_CONTENTS=$(cat custom_worlds.txt)
+        echo "world_list=$FILE_CONTENTS" >> $GITHUB_OUTPUT
+        shell: bash
     - name: Install dependencies
       run: |
         python -m venv venv
@@ -46,7 +52,7 @@ jobs:
       run: |
         source venv/bin/activate
         export PYTHONPATH=$(pwd)
-        timeout 600 python Launcher.py "Build Custom APWorlds"
+        timeout 600 python Launcher.py "Build APWorlds" ${{steps.read_apworlds.outputs.world_list}}
     - name: Add to Release
       uses: softprops/action-gh-release@v2.5.0
       with:
