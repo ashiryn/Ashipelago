@@ -43,7 +43,7 @@ jobs:
       run: |
         source venv/bin/activate
         export PYTHONPATH=$(pwd)
-        timeout 600 python Launcher.py "Build APWorlds"
+        timeout 600 python Launcher.py "Build Custom APWorlds"
     - name: Add to Release
       uses: softprops/action-gh-release@v2.5.0
       with:

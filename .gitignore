@@ -197,6 +197,9 @@ _speedups.html
 Thumbs.db
 [Dd]esktop.ini
 
+# Ashipelago overrides
+!custom_libraries/*/lib
+
 # World files that need to be added but devs have named them improperly...
 !custom_worlds/metroidprime/lib
 !rust.abi3.so
