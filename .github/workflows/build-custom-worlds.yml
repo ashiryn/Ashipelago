@@ -7,10 +7,11 @@ on:
   push:
   pull_request:
     types: [closed]
-    #branches: ["ashipelago"]
+    branches:
+      - ashipelago
 
 jobs:
-  hosting:
+  build:
     runs-on: ubuntu-latest
     name: Building custom .apworlds for Ashipelago
 
@@ -20,15 +21,12 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.12.6
-    - name: Check if custom .apworlds need building
-      if: startsWith(github.event.pull_request.title, 'Worlds/') == false
-      run: |
-        echo "Not a worlds update, skipping .apworld building"
-        exit 0
     - name: Get current date
+      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       id: date
       run: echo "NOW=$(TZ=":America/New_York" date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Create Release
+      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       uses: softprops/action-gh-release@v2.5.0
       with:
         draft: true
@@ -53,7 +51,10 @@ jobs:
         source venv/bin/activate
         export PYTHONPATH=$(pwd)
         timeout 600 python Launcher.py "Build APWorlds" ${{steps.read_apworlds.outputs.world_list}}
+        FILE_COUNT=$(find "build/apworlds" -maxdepth 1 -mindepth 1 | wc -l)
+        echo "Built $FILE_COUNT .apworlds"
     - name: Add to Release
+      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       uses: softprops/action-gh-release@v2.5.0
       with:
         draft: true
