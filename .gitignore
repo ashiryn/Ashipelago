@@ -202,3 +202,4 @@ Thumbs.db
 !custom_worlds/metroidprime/lib/py_randomprime/rust.abi3.so
 !custom_worlds/metroidprime/lib/py_randomprime/rust.pyd
 !custom_worlds/subversion/data/*/*.*
+!custom_worlds/sm_map_rando/data/*/*.*
