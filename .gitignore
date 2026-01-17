@@ -201,11 +201,11 @@ Thumbs.db
 !custom_libraries/*/lib
 
 # World files that need to be added but devs have named them improperly...
-!custom_worlds/metroidprime/lib
+!worlds/metroidprime/lib
 !rust.abi3.so
 !rust.pyd
-!custom_worlds/subversion/data/*/*.*
-!custom_worlds/sm_map_rando/data/*/*.*
-!custom_worlds/albw/albwrandomizer
-!custom_worlds/albw/albwrandomizer/*.pyd
-!custom_worlds/albw/albwrandomizer/*.so
+!worlds/subversion/data/*/*.*
+!worlds/sm_map_rando/data/*/*.*
+!worlds/albw/albwrandomizer
+!worlds/albw/albwrandomizer/*.pyd
+!worlds/albw/albwrandomizer/*.so
