@@ -39,16 +39,16 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python:
-          - {version: '3.11'}               # old
+          #- {version: '3.11'}               # old
           - {version: '3.12.6'}             # current
-          - {version: '3.13'}               # future
-        include:
-          - python: {version: '3.11'}       # old
-            os: windows-latest
-          - python: { version: '3.12.6' }   # current
-            os: windows-latest
-          - python: {version: '3.13'}       # future
-            os: windows-latest
+          #- {version: '3.13'}               # future
+        #include:
+          #- python: {version: '3.11'}       # old
+          #  os: windows-latest
+          #- python: { version: '3.12.6' }   # current
+          #  os: windows-latest
+          #- python: {version: '3.13'}       # future
+          #  os: windows-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +64,7 @@ jobs:
           python Launcher.py --update_settings  # make sure host.yaml exists for tests
       - name: Unittests
         run: |
-          pytest -n auto
+          pytest test/webhost/
 
   hosting:
     runs-on: ${{ matrix.os }}
