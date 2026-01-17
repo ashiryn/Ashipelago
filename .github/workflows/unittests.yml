@@ -64,7 +64,7 @@ jobs:
           python Launcher.py --update_settings  # make sure host.yaml exists for tests
       - name: Unittests
         run: |
-          pytest test/webhost/
+          pytest test/netutils/ test/options/ test/programs/ test/utils/ test/webhost/
 
   hosting:
     runs-on: ${{ matrix.os }}
