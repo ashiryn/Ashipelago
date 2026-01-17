@@ -1,13 +1,12 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: unittests
+name: Build Custom .apworlds
 
 on:
   push:
-
   pull_request:
-    types: [opened, edited]
+    types: [closed]
     #branches: ["ashipelago"]
 
 jobs:
@@ -25,12 +24,16 @@ jobs:
       if: startsWith(github.event.pull_request.title, 'Worlds/') == false
       run: |
         echo "Not a worlds update, skipping .apworld building"
+        exit 0
+    - name: Get current date
+      id: date
+      run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Create Release
       uses: softprops/action-gh-release@v2.5.0
       with:
         draft: true
         prerelease: false
-        name: github.event.pull_request.title
+        name: "Custom Worlds ${{ env.NOW }}"
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Install dependencies
@@ -49,7 +52,7 @@ jobs:
       with:
         draft: true
         prerelease: false
-        name: github.event.pull_request.title
+        name: "Custom Worlds ${{ env.NOW }}"
         files: |
           build/apworlds/*
       env:
