@@ -1,3 +1,5 @@
+from AshipelagoUtilities import setup_lib_path
+setup_lib_path(__file__)
 import os
 import orjson
 from typing import Any, ClassVar, Dict, List, Optional, Sequence, Tuple

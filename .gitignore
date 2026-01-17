@@ -199,8 +199,10 @@ Thumbs.db
 
 # World files that need to be added but devs have named them improperly...
 !custom_worlds/metroidprime/lib
-!custom_worlds/metroidprime/lib/py_randomprime/rust.abi3.so
-!custom_worlds/metroidprime/lib/py_randomprime/rust.pyd
+!rust.abi3.so
+!rust.pyd
 !custom_worlds/subversion/data/*/*.*
 !custom_worlds/sm_map_rando/data/*/*.*
+!custom_worlds/albw/lib
+!albwrandomizer.so
 !albwrandomizer.cp312-win_amd64.pyd
