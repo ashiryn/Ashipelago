@@ -198,5 +198,5 @@ Thumbs.db
 [Dd]esktop.ini
 
 # World files that need to be added but devs have named them improperly...
-!worlds/metroidprime/lib
-!worlds/subversion/data/*/*.*
+!custom_worlds/metroidprime/lib
+!custom_worlds/subversion/data/*/*.*
