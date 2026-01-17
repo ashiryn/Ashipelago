@@ -69,7 +69,9 @@ class WorldSource:
             # Ashipelago customization
             elif "custom_worlds" in self.path:
                     self.relative = True
-                    self.path = self.path.replace(os.path.dirname(self.path) + "\\", "")
+                    logging.info(f"Loading custom worlds before trimming path: {self.path}")
+                    self.path = self.path.replace(os.path.dirname(self.path) + os.sep, "")
+                    logging.info(f"Loading custom worlds after trimming path: {self.path}")
                     importlib.import_module(f".{self.path}", "custom_worlds")
             else:
                 importlib.import_module(f".{self.path}", "worlds")
