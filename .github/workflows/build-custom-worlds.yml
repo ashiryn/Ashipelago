@@ -38,7 +38,7 @@ jobs:
         python -m venv venv
         source venv/bin/activate
         python -m pip install --upgrade pip
-        python ModuleUpdate.py --yes --force --append "requirements.txt"
+        python ModuleUpdate.py --yes --force --append "WebHostLib/requirements.txt"
     - name: Build APWorlds
       run: |
         source venv/bin/activate
