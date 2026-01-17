@@ -1,7 +1,7 @@
 import typing
 
 from test.bases import WorldTestBase
-from custom_worlds.spire import SpireWorld
+from worlds.spire import SpireWorld
 
 
 class SpireTestBase(WorldTestBase):

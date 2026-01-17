@@ -129,6 +129,72 @@ def apply_rules(world: "PlateUpWorld"):
                 except KeyError:
                     pass
 
+        # Explicitly gate franchise day completion locations by Day Lease and Player Speed,
+        # mirroring the region entrance rules so spheres reflect lease requirements.
+        try:
+            required_franchises = int(world.options.franchise_count.value)
+        except Exception:
+            required_franchises = 1
+        # Lease cadence and speed-gating must match Regions.create_plateup_regions
+        interval = max(1, int(world.options.day_lease_interval.value))
+        # Compute speed interval across all franchise days
+        total_days = 15 * required_franchises if required_franchises > 0 else 15
+        speed_slots = max(1, int(world.options.player_speed_upgrade_count.value))
+        # Ceiling so last chunk can be shorter
+        import math as _math
+        speed_interval = max(1, _math.ceil(total_days / speed_slots))
+
+        def run_suffix(run: int) -> str:
+            if run == 0:
+                return ""
+            if run == 1:
+                return " After Franchised"
+            return f" After Franchised {run}"
+
+        def day_label(d: int) -> str:
+            mapping = {1: "First Day", 2: "Second Day", 3: "Third Day", 4: "Fourth Day", 5: "Fifth Day"}
+            return mapping.get(d, f"Day {d}")
+
+        for run in range(required_franchises):
+            suff = run_suffix(run)
+            for d in range(1, 16):
+                cur_name = f"Franchise - Complete {day_label(d)}{suff}"
+                # Leases required based on global day number (run*15 + d)
+                global_day = run * 15 + d
+                leases_required = (global_day - 1) // interval
+                speed_required = min(int(world.options.player_speed_upgrade_count.value), (global_day - 1) // speed_interval)
+
+                # Previous completion within the same run or prior run's Day 15 when d == 1 and run > 0
+                if d == 1:
+                    if run == 0:
+                        prev_name = None
+                    else:
+                        prev_name = f"Franchise - Complete Day 15{run_suffix(run - 1)}"
+                else:
+                    prev_name = f"Franchise - Complete {day_label(d-1)}{suff}"
+
+                try:
+                    loc_cur = world.get_location(cur_name)
+                    # Build rule requiring leases/speed (and previous completion if applicable)
+                    if prev_name is None:
+                        loc_cur.access_rule = (
+                            lambda state, req=leases_required, spd=speed_required: (
+                                state.has("Day Lease", world.player, req)
+                                and state.has("Speed Upgrade Player", world.player, spd)
+                            )
+                        )
+                    else:
+                        loc_cur.access_rule = (
+                            lambda state, p=prev_name, req=leases_required, spd=speed_required: (
+                                state.can_reach(p, "Location", world.player)
+                                and state.has("Day Lease", world.player, req)
+                                and state.has("Speed Upgrade Player", world.player, spd)
+                            )
+                        )
+                except KeyError:
+                    # This day's franchise completion might not be present (e.g., beyond required runs)
+                    pass
+
     try:
         lose_loc = world.get_location("Lose a Run")
         if world.options.goal.value == 1:

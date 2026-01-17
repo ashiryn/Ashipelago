@@ -206,6 +206,6 @@ Thumbs.db
 !rust.pyd
 !custom_worlds/subversion/data/*/*.*
 !custom_worlds/sm_map_rando/data/*/*.*
-!custom_worlds/albw/lib
-!albwrandomizer.so
-!albwrandomizer.cp312-win_amd64.pyd
+!custom_worlds/albw/albwrandomizer
+!custom_worlds/albw/albwrandomizer/*.pyd
+!custom_worlds/albw/albwrandomizer/*.so

@@ -140,6 +140,11 @@ class PlateUpWorld(World):
 
     def create_item(self, name: str, classification: ItemClassification = ItemClassification.filler) -> PlateUpItem:
         """Create a PlateUp item from the given name."""
+        if name == "Random Appliance":
+            return PlateUpItem(name, classification, 1001, self.player)
+        if name == "Random Filler Appliance":
+            return PlateUpItem(name, classification, 1002, self.player)
+
         if name in self.item_name_to_id:
             item_id = self.item_name_to_id[name]
         else:
@@ -236,9 +241,13 @@ class PlateUpWorld(World):
             for _ in range(trap_to_add)
         ])
 
-        while len(item_pool) < total_locations:
-            filler_name = self.get_filler_item_name()
-            item_pool.append(self.create_item(filler_name))
+        # Top up remaining capacity with a mix of normal and filler appliances
+        remaining = max(0, total_locations - len(item_pool))
+        for i in range(remaining):
+            if i % 2 == 0:
+                item_pool.append(self.create_item("Random Appliance", classification=ItemClassification.useful))
+            else:
+                item_pool.append(self.create_item("Random Filler Appliance", classification=ItemClassification.filler))
 
         logging.debug(f"[Player {self.multiworld.player_name[self.player]}] Total item pool count: {len(item_pool)}")
         logging.debug(f"[Player {self.multiworld.player_name[self.player]}] Total locations: {total_locations}")
@@ -279,10 +288,12 @@ class PlateUpWorld(World):
         current_items = [item for item in self.multiworld.itempool if item.player == self.player]
         missing = len(final_locations) - len(current_items)
         if missing > 0:
-            logging.debug(f"[Player {self.multiworld.player_name[self.player]}] Item pool is short by {missing} items. Adding filler items.")
-            for _ in range(missing):
-                filler_name = self.get_filler_item_name()
-                self.multiworld.itempool.append(self.create_item(filler_name))
+            logging.debug(f"[Player {self.multiworld.player_name[self.player]}] Item pool is short by {missing} items. Adding appliance placeholders.")
+            for i in range(missing):
+                if i % 2 == 0:
+                    self.multiworld.itempool.append(self.create_item("Random Appliance", classification=ItemClassification.useful))
+                else:
+                    self.multiworld.itempool.append(self.create_item("Random Filler Appliance", classification=ItemClassification.filler))
 
     def fill_slot_data(self):
         """Return slot data for this player."""
@@ -318,13 +329,8 @@ class PlateUpWorld(World):
 
     def get_filler_item_name(self):
         """Randomly select a filler item from the available candidates."""
-        filler_candidates = [
-            name for name, (code, classification) in ITEMS.items()
-            if classification == ItemClassification.filler
-        ]
-        if not filler_candidates:
-            raise Exception("No filler items available in ITEMS.")
-        return self.random.choice(filler_candidates)
+        # Use the explicit filler placeholder to avoid ambiguity.
+        return "Random Filler Appliance"
 
     def set_selected_dishes(self):
         dish_count = self.options.dish.value

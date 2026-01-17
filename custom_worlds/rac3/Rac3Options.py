@@ -1,177 +1,143 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List
 
-from Options import Choice, ExcludeLocations, ItemDict, OptionGroup, StartInventoryPool
+from Options import Accessibility, OptionGroup, ProgressionBalancing, StartInventoryPool
 from worlds.AutoWorld import PerGameCommonOptions
-from .Items import default_starting_weapons
+from worlds.rac3.constants.options import RAC3OPTION
+from worlds.rac3.options.arena_options import Arena
+from worlds.rac3.options.armor_upgrade_options import ArmorUpgrade
+from worlds.rac3.options.deathlink_options import Deathlink
+from worlds.rac3.options.exclude_options import RAC3ExcludeLocations
+from worlds.rac3.options.filler_weight_options import FillerWeight
+from worlds.rac3.options.multiplier_options import BoltAndXPMultiplier
+from worlds.rac3.options.nanotech_limitation_options import NanotechLimitation
+from worlds.rac3.options.nanotech_options import NanotechMilestones
+from worlds.rac3.options.one_hp_options import OneHpChallenge
+from worlds.rac3.options.prog_weapons_options import EnableProgressiveWeapons
+from worlds.rac3.options.rangers_options import Rangers
+from worlds.rac3.options.ratchet_skins_options import RatchetSkin
+from worlds.rac3.options.sewer_limitation_options import SewerLimitation
+from worlds.rac3.options.sewer_options import SewerCrystals
+from worlds.rac3.options.ship_nose_options import ShipNose
+from worlds.rac3.options.ship_skin_options import ShipSkin
+from worlds.rac3.options.ship_wings_options import ShipWings
+from worlds.rac3.options.skillpoints_options import SkillPoints
+from worlds.rac3.options.starting_weapons_options import StartingWeapons
+from worlds.rac3.options.titanium_bolts_options import TitaniumBolts
+from worlds.rac3.options.trap_weight_options import TrapWeight
+from worlds.rac3.options.traps_options import EnableTraps
+from worlds.rac3.options.trophies_options import Trophies
+from worlds.rac3.options.vidcomics_options import VidComics
+from worlds.rac3.options.vr_challenges_options import VRChallenges
+from worlds.rac3.options.weapon_vendors_options import WeaponVendors
 
-# Common variable
-GAME_TITLE = "Rac3"
-GAME_TITLE_FULL = "Ratchet & Clank 3"
 
-
-def create_option_groups() -> List[OptionGroup]:
-    option_group_list: List[OptionGroup] = []
+def create_option_groups() -> list[OptionGroup]:
+    option_group_list: list[OptionGroup] = []
     for name, options in rac3_option_groups.items():
         option_group_list.append(OptionGroup(name=name, options=options))
 
     return option_group_list
 
 
-class StartingWeapons(ItemDict):
-    """
-    Determines which weapons you will be starting the game with, provide a count of the weapons you want to be picked
-    between, 2 are selected to be placed on Veldin.
-    """
-    display_name = "Starting Weapons"
-    min = 0
-    max = 5
-    default = default_starting_weapons
-    valid_keys = default_starting_weapons.keys()
-
-
-class BoltAndXPMultiplier(Choice):
-    """
-    Determines what your bolts and xp will be multiplied by, recommended to go with x6 if you hate grinding,
-    x10 if you're looking to do a sync.
-    Dev comment: This currently uses the NG+ multiplier so only bolt gain is affected, weapon xp gain is not.
-    """
-    display_name = "BoltAndXPMultiplier"
-    option_x1 = 1
-    option_x2 = 2
-    option_x4 = 4
-    option_x6 = 6
-    option_x8 = 8
-    option_x10 = 10
-    default = 1
-
-
-class EnableProgressiveWeapons(Choice):
-    """
-    Determines whether weapon level-ups are progressive items or not.
-    Disabled: Weapon leveling and exp functions like in the vanilla game.
-    Enabled: Weapon level-ups are progressive items placed in the item pool and weapon exp is disabled.
-    """
-    display_name = "EnableProgressiveWeapons"
-    option_disable = 0
-    option_enable = 1
-    default = 1
-
-
-class ExtraArmorUpgrade(Choice):
-    """
-    Determines how many extra progressive ArmorUpgrade items are included in the item pool. 1~2 is recommended.
-    """
-    display_name = "ExtraArmorUpgrade"
-    option_no_extra = 0
-    option_extra_1 = 1
-    option_extra_2 = 2
-    option_extra_3 = 3
-    option_extra_4 = 4
-    default = 0
-
-class SkillPoints(Choice):
-    """
-    Determines which skill points are locations in the world.
-    None: No skill points are locations.
-    Simple: 15 simple skill points are locations. Still taking feedback on the selection:
-    - Stay Squeaky Clean
-    - Reflect on how to score
-    - Lights, camera action!
-    - Flee Flawlessly
-    - Search for sunken treasure
-    - Be a sharpshooter
-    - Beat Helga's Best Time
-    - Bugs to Birdie
-    - Get to the belt
-    - Feeling Lucky?
-    - 2002 was a good year in the city
-    - Aim High
-    - Go for hang time
-    - Break the Dan
-    - You break it, you win it
-    Every Skill Point: All 30 skill points are locations.
-    """
-    display_name = "Skill Points"
-    option_none = 0
-    option_simple = 1
-    option_every_skill_point = 2
-    default = 1
-
-class Trophies(Choice):
-    """
-    Determines which trophies are locations in the world.
-    None: No trophies are locations.
-    Collectables: Only the collectable trophies found on various planets are locations.
-    Every Trophy: All special trophies that do not require NG+ are now also locations.
-    """
-    display_name = "Trophies"
-    option_none = 0
-    option_collectables = 1
-    option_every_trophy = 2
-    default = 1
-
-class TitaniumBolts(Choice):
-    """
-    Determines whether titanium bolts are locations in the world.
-    Disabled: No titanium bolts are locations.
-    Enabled: All titanium bolts are locations.
-    """
-    display_name = "Titanium Bolts"
-    option_disabled = 0
-    option_enabled = 1
-    default = 1
-
-class NanotechMilestones(Choice):
-    """
-    Determines whether nanotech milestones are locations in the world.
-    None: No nanotech milestones are locations.
-    Every 5: Makes every 5 nanotech milestones locations starting from nanotech level 15.
-    Every 10: Makes every 10 nanotech milestones locations starting from nanotech level 20.
-    Every 20: Makes every 20 nanotech milestones locations starting from nanotech level 20.
-    All: All nanotech milestones are locations.
-    """
-    display_name = "Nanotech Milestones"
-    option_none = 0
-    option_every_5 = 1
-    option_every_10 = 2
-    option_every_20 = 3
-    option_all = 4
-    default = 0
-
-class RAC3ExcludeLocations(ExcludeLocations):
-    """Prevent these locations from having an important item."""
-    default = frozenset({'Unstable', 'Long Term Trophy', 'Weapons', 'Gadgets'})
-
-
 @dataclass
 class RaC3Options(PerGameCommonOptions):
+    deathlink: Deathlink
     start_inventory_from_pool: StartInventoryPool
     starting_weapons: StartingWeapons
     bolt_and_xp_multiplier: BoltAndXPMultiplier
     enable_progressive_weapons: EnableProgressiveWeapons
-    extra_armor_upgrade: ExtraArmorUpgrade
+    armor_upgrade: ArmorUpgrade
+    filler_weight: FillerWeight
+    sewer_limitation: SewerLimitation
+    traps_enabled: EnableTraps
+    trap_weight: TrapWeight
+    weapon_vendors: WeaponVendors
     skill_points: SkillPoints
     trophies: Trophies
     titanium_bolts: TitaniumBolts
+    rangers: Rangers
+    vidcomics: VidComics
+    vr_challenges: VRChallenges
+    arena: Arena
+    sewer_crystals: SewerCrystals
+    sewer_limitation: SewerLimitation
     nanotech_milestones: NanotechMilestones
+    nanotech_limitation: NanotechLimitation
     exclude_locations: RAC3ExcludeLocations
+    ship_nose: ShipNose
+    ship_wings: ShipWings
+    ship_skin: ShipSkin
+    skin: RatchetSkin
+    one_hp_challenge: OneHpChallenge
 
 
-rac3_option_groups: Dict[str, List[Any]] = {
-    "General Options": [StartInventoryPool, StartingWeapons, BoltAndXPMultiplier, EnableProgressiveWeapons,
-                        ExtraArmorUpgrade, SkillPoints, Trophies, TitaniumBolts, NanotechMilestones]
-}
+rac3_option_groups = [
+    OptionGroup("Generic Options", [
+        ProgressionBalancing,
+        Accessibility,
+        Deathlink,
+        RAC3ExcludeLocations,
+    ]),
+    OptionGroup("RAC3 Game Options", [
+        BoltAndXPMultiplier,
+        OneHpChallenge,
+    ]),
+    OptionGroup("RAC3 Item Options", [
+        StartingWeapons,
+        EnableProgressiveWeapons,
+        ArmorUpgrade,
+        EnableTraps,
+        TrapWeight,
+        FillerWeight,
+    ]),
+    OptionGroup("RAC3 Location Options", [
+        WeaponVendors,
+        SkillPoints,
+        Trophies,
+        TitaniumBolts,
+        Rangers,
+        VidComics,
+        VRChallenges,
+        Arena,
+        SewerCrystals,
+        SewerLimitation,
+        NanotechMilestones,
+        NanotechLimitation,
+    ]),
+    OptionGroup("RAC3 Cosmetic Options", [
+        ShipNose,
+        ShipWings,
+        ShipSkin,
+        RatchetSkin,
+    ]),
+]
 
 slot_data_options: list[str] = [
-    "start_inventory_from_pool"
-    "starting_weapons",
-    "bolt_and_xp_multiplier",
-    "enable_progressive_weapons",
-    "extra_armor_upgrade",
-    "skill_points",
-    "trophies",
-    "titanium_bolts",
-    "nanotech_milestones",
-    "exclude_locations"
+    RAC3OPTION.DEATHLINK,
+    RAC3OPTION.START_INVENTORY_FROM_POOL,
+    RAC3OPTION.STARTING_WEAPONS,
+    RAC3OPTION.BOLT_AND_XP_MULTIPLIER,
+    RAC3OPTION.ENABLE_PROGRESSIVE_WEAPONS,
+    RAC3OPTION.ARMOR_UPGRADE,
+    RAC3OPTION.SKILL_POINTS,
+    RAC3OPTION.TROPHIES,
+    RAC3OPTION.TITANIUM_BOLTS,
+    RAC3OPTION.NANOTECH_MILESTONES,
+    RAC3OPTION.NANOTECH_LIMITATION,
+    RAC3OPTION.EXCLUDE,
+    RAC3OPTION.SHIP_NOSE,
+    RAC3OPTION.SHIP_WINGS,
+    RAC3OPTION.SHIP_SKIN,
+    RAC3OPTION.SKIN,
+    RAC3OPTION.ENABLE_TRAPS,
+    RAC3OPTION.TRAP_WEIGHT,
+    RAC3OPTION.RANGERS,
+    RAC3OPTION.ARENA,
+    RAC3OPTION.VIDCOMICS,
+    RAC3OPTION.VR_CHALLENGES,
+    RAC3OPTION.SEWER_CRYSTALS,
+    RAC3OPTION.SEWER_LIMITATION,
+    RAC3OPTION.WEAPON_VENDORS,
+    RAC3OPTION.FILLER_WEIGHT,
+    RAC3OPTION.ONE_HP_CHALLENGE,
 ]
