@@ -3,7 +3,7 @@ import pkgutil
 import typing
 from typing import Mapping, Any, Optional
 
-from BaseClasses import Region, LocationProgressType, Item, CollectionState, ItemClassification
+from BaseClasses import Region, LocationProgressType, Item, CollectionState, ItemClassification, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import set_rule
 
@@ -27,7 +27,14 @@ dungeon_locations = json.loads(pkgutil.get_data(__name__, "data/atla_locations.j
 class DarkCloudWeb(WebWorld):
     theme = "jungle"
     bug_report_page = ""
-
+    tutorials = [Tutorial(
+        "Multiworld Setup Guide",
+        "A guide to setting up Dark Cloud 1 for Multiworld.",
+        "English",
+        "setup_en.md",
+        "setup/en",
+        ["EdricY"]
+    )]
 
 class DarkCloudWorld(World):
     """
