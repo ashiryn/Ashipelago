@@ -1,0 +1,6 @@
+- Name: CelesteArchipelago
+  Version: 0.3.0
+  DLL: CelesteArchipelago.dll
+  Dependencies:
+    - Name: Everest
+      Version: 1.4465.0

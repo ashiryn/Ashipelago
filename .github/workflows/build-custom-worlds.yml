@@ -50,7 +50,7 @@ jobs:
       run: |
         source venv/bin/activate
         export PYTHONPATH=$(pwd)
-        timeout 600 python Launcher.py "Build APWorlds" ${{steps.read_apworlds.outputs.world_list}}
+        timeout 600 python Launcher.py "Build Custom APWorlds" ${{steps.read_apworlds.outputs.world_list}}
         FILE_COUNT=$(find "build/apworlds" -maxdepth 1 -mindepth 1 | wc -l)
         echo "Built $FILE_COUNT .apworlds"
     - name: Add to Release
@@ -62,5 +62,7 @@ jobs:
         name: "Custom Worlds ${{ env.NOW }}"
         files: |
           build/apworlds/*
+          build/additional_files/*
+          build/pop_trackers/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

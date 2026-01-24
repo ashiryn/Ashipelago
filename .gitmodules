@@ -1,0 +1,93 @@
+[submodule "ashipelago/pop_trackers/ff6wc"]
+	path = ashipelago/pop_trackers/ff6wc
+	url = https://github.com/Llisandur/FF6-Worlds-Collide-PopTracker-pack.git
+[submodule "ashipelago/pop_trackers/animal_well/src"]
+	path = ashipelago/pop_trackers/animal_well/src
+	url = https://github.com/SporyTike/ANIMAL-WELL-AP-Tracker.git
+[submodule "ashipelago/pop_trackers/ahit/src"]
+	path = ashipelago/pop_trackers/ahit/src
+	url = https://github.com/Mysteryem/ahit-poptracker.git
+[submodule "ashipelago/pop_trackers/albw/src"]
+	path = ashipelago/pop_trackers/albw/src
+	url = https://github.com/Legendgreat/albw-ap-poptracker.git
+[submodule "ashipelago/pop_trackers/celeste/src"]
+	path = ashipelago/pop_trackers/celeste/src
+	url = https://github.com/seto10987/Celeste-AP-Tracker.git
+[submodule "ashipelago/pop_trackers/alttp/src"]
+	path = ashipelago/pop_trackers/alttp/src
+	url = https://github.com/StripesOO7/alttp-ap-poptracker-pack.git
+[submodule "ashipelago/pop_trackers/anodyne/src"]
+	path = ashipelago/pop_trackers/anodyne/src
+	url = https://github.com/palex00/anodyne-ap-tracker.git
+[submodule "ashipelago/pop_trackers/aquaria/src"]
+	path = ashipelago/pop_trackers/aquaria/src
+	url = https://github.com/palex00/aquaria-ap-tracker.git
+[submodule "ashipelago/pop_trackers/balatro/src"]
+	path = ashipelago/pop_trackers/balatro/src
+	url = https://github.com/graygooglitch/balatroap_poptracker.git
+[submodule "ashipelago/pop_trackers/banjo_tooie/src"]
+	path = ashipelago/pop_trackers/banjo_tooie/src
+	url = https://github.com/Ozone31/banjo-tooie-ap-tracker.git
+[submodule "ashipelago/pop_trackers/crosscode/src"]
+	path = ashipelago/pop_trackers/crosscode/src
+	url = https://github.com/lurch9229/CrossCode-Poptracker-AP.git
+[submodule "ashipelago/pop_trackers/dark_souls_3/src"]
+	path = ashipelago/pop_trackers/dark_souls_3/src
+	url = https://github.com/Br00ty/DS3_AP_Maptracker.git
+[submodule "ashipelago/pop_trackers/diddy_kong_racing/src"]
+	path = ashipelago/pop_trackers/diddy_kong_racing/src
+	url = https://github.com/theUofCWildcat/DKR-Poptracker.git
+[submodule "ashipelago/pop_trackers/dk64/src"]
+	path = ashipelago/pop_trackers/dk64/src
+	url = https://github.com/UmedMuzl/dk64pt.git
+[submodule "ashipelago/pop_trackers/dkc/src"]
+	path = ashipelago/pop_trackers/dkc/src
+	url = https://github.com/pwkfisher/ap-dkc-tracker.git
+[submodule "ashipelago/pop_trackers/dkc2/src"]
+	path = ashipelago/pop_trackers/dkc2/src
+	url = https://github.com/pwkfisher/ap-dkc2-tracker.git
+[submodule "ashipelago/pop_trackers/dkc3"]
+	path = ashipelago/pop_trackers/dkc3
+	url = https://github.com/PoryGone/DKC3_AP_Tracker.git
+[submodule "ashipelago/pop_trackers/doom_1993/src"]
+	path = ashipelago/pop_trackers/doom_1993/src
+	url = https://github.com/Ozone31/doom-ap-tracker.git
+[submodule "ashipelago/pop_trackers/doom_ii/src"]
+	path = ashipelago/pop_trackers/doom_ii/src
+	url = https://github.com/Ozone31/doomii-ap-tracker.git
+[submodule "ashipelago/pop_trackers/dw1/src"]
+	path = ashipelago/pop_trackers/dw1/src
+	url = https://github.com/seto10987/Digimon-World-AP-PopTracker-Pack.git
+[submodule "ashipelago/pop_trackers/ff4fe/src"]
+	path = ashipelago/pop_trackers/ff4fe/src
+	url = https://github.com/seto10987/Final-Fantasy-4-Free-Enterprise-AP-Poptracker-Pack.git
+[submodule "ashipelago/pop_trackers/cvcotm/src"]
+	path = ashipelago/pop_trackers/cvcotm/src
+	url = https://github.com/sassyvania/Circle-of-the-Moon-Rando-AP-Map-Tracker-.git
+[submodule "ashipelago/pop_trackers/ffvcd/src"]
+	path = ashipelago/pop_trackers/ffvcd/src
+	url = https://github.com/seto10987/FFV-Career-Day-AP.git
+[submodule "ashipelago/pop_trackers/hades/src"]
+	path = ashipelago/pop_trackers/hades/src
+	url = https://github.com/OmegaZeron/Hades-AP-Poptracker-Pack.git
+[submodule "ashipelago/pop_trackers/heretic/src"]
+	path = ashipelago/pop_trackers/heretic/src
+	url = https://github.com/Forsaken-angel/heretic-ap-tracker.git
+[submodule "ashipelago/pop_trackers/hylics2/src"]
+	path = ashipelago/pop_trackers/hylics2/src
+	url = https://github.com/superfid2006/Hylics2-poptracker.git
+[submodule "ashipelago/pop_trackers/inscryption/src"]
+	path = ashipelago/pop_trackers/inscryption/src
+	url = https://github.com/DrBibop/Inscryption_Poptracker.git
+[submodule "ashipelago/pop_trackers/jakanddaxter/src"]
+	path = ashipelago/pop_trackers/jakanddaxter/src
+	url = https://github.com/LegsLegsLegs/Jak-and-Daxter-Poptracker.git
+[submodule "ashipelago/pop_trackers/k64/src"]
+	path = ashipelago/pop_trackers/k64/src
+	url = https://github.com/RunInAWeek/Kirby-64-Archipelago-Tracker.git
+[submodule "ashipelago/pop_trackers/kdl3/src"]
+	path = ashipelago/pop_trackers/kdl3/src
+	url = https://github.com/ZobeePlays/KirbyDL3-Archipelago-Tracker.git
+[submodule "ashipelago/pop_trackers/kh2/src"]
+	path = ashipelago/pop_trackers/kh2/src
+	url = https://github.com/JDProchaska/Kingdom-Hearts-2-FM-Pop-Tracker-Pack.git

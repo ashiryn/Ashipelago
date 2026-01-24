@@ -6,6 +6,7 @@ from enum import Enum, auto
 from typing import Optional, Callable, List, Iterable, Tuple
 
 from Utils import local_path, open_filename, is_frozen, is_kivy_running, open_file, user_path
+from worlds.spelunky2.Items import item_code
 
 
 class Type(Enum):
@@ -348,9 +349,6 @@ if not is_frozen():
             if not worldtype:
                 logging.error(f"Requested APWorld \"{worldname}\" does not exist.")
                 continue
-            # Ashipelago customization
-            if "custom_worlds" not in worldtype.__file__:
-                continue
             file_name = os.path.split(os.path.dirname(worldtype.__file__))[1]
             world_directory = os.path.join("worlds", file_name)
             if os.path.isfile(os.path.join(world_directory, "archipelago.json")):
@@ -382,8 +380,50 @@ if not is_frozen():
                     if not relative_path.endswith("archipelago.json"):
                         zf.write(path, relative_path)
                 zf.writestr(apworld.manifest_path, json.dumps(manifest))
-        open_folder(apworlds_folder)
 
+        package_additional_files()
+        package_pop_trackers()
+
+    def package_additional_files():
+        import os
+        import zipfile
+        additional_files_directory = os.path.join("ashipelago", "additional_files")
+        additional_files_folders = [item for item in os.listdir(additional_files_directory) if os.path.isdir(os.path.join(additional_files_directory, item))]
+        apworlds_folder = os.path.join("build", "additional_files")
+
+        for world in additional_files_folders:
+            zip_path = os.path.join(apworlds_folder, world + "_additional_files.zip")
+            world_directory = os.path.join(additional_files_directory, world)
+            with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED,
+                                 compresslevel=9) as zf:
+                for path in pathlib.Path(world_directory).rglob("*"):
+                    relative_path = os.path.join(*path.parts[path.parts.index(world) + 1:])
+                    if "__MACOSX" in relative_path or ".DS_STORE" in relative_path or "__pycache__" in relative_path:
+                        continue
+
+                    zf.write(path, relative_path)
+
+
+    def package_pop_trackers():
+        import os
+        import zipfile
+        additional_files_directory = os.path.join("ashipelago", "pop_trackers")
+        additional_files_folders = [item for item in os.listdir(additional_files_directory) if os.path.isdir(os.path.join(additional_files_directory, item))]
+        apworlds_folder = os.path.join("build", "pop_trackers")
+
+        for world in additional_files_folders:
+            zip_path = os.path.join(apworlds_folder, world + "_pack.zip")
+            world_directory = os.path.join(additional_files_directory, world, "src")
+            if not path(world_directory).is_dir():
+                world_directory = os.path.join(additional_files_directory, world, "donkey_kong_country_3_randomizer_porygone")
+            with (zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED,
+                                 compresslevel=9) as zf):
+                for path in pathlib.Path(world_directory).rglob("*"):
+                    relative_path = os.path.join(*path.parts[path.parts.index("src") + 1:])
+                    if "__MACOSX" in relative_path or ".DS_STORE" in relative_path or "__pycache__" in relative_path or ".gitignore" in relative_path or ".github" in relative_path or "build.sh" in relative_path or "buildfunctions.sh" in relative_path or ".vscode" in relative_path:
+                        continue
+
+                    zf.write(path, relative_path)
 
     components.append(Component("Build Custom APWorlds", func=_build_custom_apworlds, cli=True,
                                 description="Build only Custom APWorlds from loose-file custom_world folders."))
