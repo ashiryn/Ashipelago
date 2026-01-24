@@ -389,10 +389,11 @@ if not is_frozen():
         import zipfile
         additional_files_directory = os.path.join("ashipelago", "additional_files")
         additional_files_folders = [item for item in os.listdir(additional_files_directory) if os.path.isdir(os.path.join(additional_files_directory, item))]
-        apworlds_folder = os.path.join("build", "additional_files")
+        additional_files_folder = os.path.join("build", "additional_files")
+        os.makedirs(additional_files_folder, exist_ok=True)
 
         for world in additional_files_folders:
-            zip_path = os.path.join(apworlds_folder, world + "_additional_files.zip")
+            zip_path = os.path.join(additional_files_folder, world + "_additional_files.zip")
             world_directory = os.path.join(additional_files_directory, world)
             with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED,
                                  compresslevel=9) as zf:
@@ -407,19 +408,23 @@ if not is_frozen():
     def package_pop_trackers():
         import os
         import zipfile
-        additional_files_directory = os.path.join("ashipelago", "pop_trackers")
-        additional_files_folders = [item for item in os.listdir(additional_files_directory) if os.path.isdir(os.path.join(additional_files_directory, item))]
-        apworlds_folder = os.path.join("build", "pop_trackers")
+        pop_tracker_directory = os.path.join("ashipelago", "pop_trackers")
+        pop_tracker_folders = [item for item in os.listdir(pop_tracker_directory) if os.path.isdir(os.path.join(pop_tracker_directory, item))]
+        pop_tracker_folder = os.path.join("build", "pop_trackers")
+        os.makedirs(pop_tracker_folder, exist_ok=True)
 
-        for world in additional_files_folders:
-            zip_path = os.path.join(apworlds_folder, world + "_pack.zip")
-            world_directory = os.path.join(additional_files_directory, world, "src")
-            if not path(world_directory).is_dir():
-                world_directory = os.path.join(additional_files_directory, world, "donkey_kong_country_3_randomizer_porygone")
+        for world in pop_tracker_folders:
+            zip_path = os.path.join(pop_tracker_folder, world + "_pack.zip")
+            root_folder = "src"
+            world_directory = os.path.join(pop_tracker_directory, world, "src")
+            if not pathlib.Path(world_directory).is_dir():
+                world_directory = os.path.join(pop_tracker_directory, world, "donkey_kong_country_3_randomizer_porygone")
+                root_folder ="donkey_kong_country_3_randomizer_porygone"
+
             with (zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED,
                                  compresslevel=9) as zf):
                 for path in pathlib.Path(world_directory).rglob("*"):
-                    relative_path = os.path.join(*path.parts[path.parts.index("src") + 1:])
+                    relative_path = os.path.join(*path.parts[path.parts.index(root_folder) + 1:])
                     if "__MACOSX" in relative_path or ".DS_STORE" in relative_path or "__pycache__" in relative_path or ".gitignore" in relative_path or ".github" in relative_path or "build.sh" in relative_path or "buildfunctions.sh" in relative_path or ".vscode" in relative_path:
                         continue
 
