@@ -54,7 +54,7 @@ jobs:
         FILE_COUNT=$(find "build/apworlds" -maxdepth 1 -mindepth 1 | wc -l)
         echo "Built $FILE_COUNT .apworlds"
     - name: Add to Release
-      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
+      #if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       uses: softprops/action-gh-release@v2.5.0
       with:
         draft: true
