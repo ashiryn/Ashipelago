@@ -16,7 +16,11 @@ jobs:
     name: Building custom .apworlds for Ashipelago
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        submodules: 'true'
+        token: '${{ github.token }}'
     - name: Set up Python 3.12.6
       uses: actions/setup-python@v5
       with:
