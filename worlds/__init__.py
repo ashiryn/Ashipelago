@@ -2,6 +2,7 @@ import importlib
 import importlib.util
 import logging
 import os
+import pathlib
 import sys
 import warnings
 import zipimport
@@ -140,14 +141,13 @@ for world_source in world_sources:
 
         # Ashipelago customization
         ashipelago_manifest = {}
-        for dirpath, dirnames, filenames in os.walk(f"{world_source.resolved_path}/../../ashipelago/web_manifests"):
-            for file in filenames:
-                if f"{world_source.path}.json" in file:
-                    with open(os.path.join(dirpath, file), mode="r", encoding="utf-8") as ashipelago_manifest_file:
-                        ashipelago_manifest = json.load(ashipelago_manifest_file)
-                    break
-            if ashipelago_manifest:
-                break
+        ashipelago_manifest_file_path = f"{world_source.resolved_path}/../../ashipelago/web_manifests/{world_source.path}.json"
+        if not os.path.exists(ashipelago_manifest_file_path):
+            logging.error(f"No ashipelago manifest found for {world_source.path}")
+            continue
+
+        with open(os.path.join(ashipelago_manifest_file_path), mode="r", encoding="utf-8") as ashipelago_manifest_file:
+            ashipelago_manifest = json.load(ashipelago_manifest_file)
 
         game = ashipelago_manifest.get("game")
         if game in AutoWorldRegister.world_types:
@@ -159,8 +159,8 @@ for world_source in world_sources:
                 AutoWorldRegister.world_types[game].web.pop_tracker = ashipelago_manifest.get("pop_tracker", None)
             if "ap_world" in ashipelago_manifest:
                 AutoWorldRegister.world_types[game].web.ap_world = ashipelago_manifest.get("ap_world", None)
-            if "files" in ashipelago_manifest:
-                AutoWorldRegister.world_types[game].web.files = ashipelago_manifest.get("files", None)
+            if "web_client" in ashipelago_manifest:
+                AutoWorldRegister.world_types[game].web.web_client = ashipelago_manifest.get("web_client", None)
 
 if apworlds:
     # encapsulation for namespace / gc purposes
