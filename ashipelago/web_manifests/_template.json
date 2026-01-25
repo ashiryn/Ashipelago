@@ -4,5 +4,5 @@
   "discord_channel": "",
   "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/_pack.zip",
   "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/game.apworld",
-  "files": "https://github.com/ashiryn/Ashipelago/releases/latest/download/_additional_files.zip"
+  "web_client": ""
 }

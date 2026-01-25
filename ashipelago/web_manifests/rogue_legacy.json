@@ -2,6 +2,5 @@
   "game": "Rogue Legacy",
   "server_version": "1.0.0",
   "discord_channel": "https://discord.com/channels/731205301247803413/929585237695029268",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/rogue_legacy.apworld",
-  "files": "https://github.com/ashiryn/Ashipelago/releases/latest/download/rogue_legacy_additional_files.zip"
+  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/rogue_legacy.apworld"
 }
