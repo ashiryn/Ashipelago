@@ -22,11 +22,11 @@ jobs:
       with:
         python-version: 3.12.6
     - name: Get current date
-      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
+      #if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       id: date
       run: echo "NOW=$(TZ=":America/New_York" date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Create Release
-      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
+      #if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       uses: softprops/action-gh-release@v2.5.0
       with:
         draft: true
@@ -62,7 +62,6 @@ jobs:
         name: "Custom Worlds ${{ env.NOW }}"
         files: |
           build/apworlds/*
-          build/additional_files/*
           build/pop_trackers/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
