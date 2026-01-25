@@ -381,28 +381,7 @@ if not is_frozen():
                         zf.write(path, relative_path)
                 zf.writestr(apworld.manifest_path, json.dumps(manifest))
 
-        package_additional_files()
         package_pop_trackers()
-
-    def package_additional_files():
-        import os
-        import zipfile
-        additional_files_directory = os.path.join("ashipelago", "additional_files")
-        additional_files_folders = [item for item in os.listdir(additional_files_directory) if os.path.isdir(os.path.join(additional_files_directory, item))]
-        additional_files_folder = os.path.join("build", "additional_files")
-        os.makedirs(additional_files_folder, exist_ok=True)
-
-        for world in additional_files_folders:
-            zip_path = os.path.join(additional_files_folder, world + "_additional_files.zip")
-            world_directory = os.path.join(additional_files_directory, world)
-            with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED,
-                                 compresslevel=9) as zf:
-                for path in pathlib.Path(world_directory).rglob("*"):
-                    relative_path = os.path.join(*path.parts[path.parts.index(world) + 1:])
-                    if "__MACOSX" in relative_path or ".DS_STORE" in relative_path or "__pycache__" in relative_path:
-                        continue
-
-                    zf.write(path, relative_path)
 
 
     def package_pop_trackers():
@@ -415,17 +394,39 @@ if not is_frozen():
 
         for world in pop_tracker_folders:
             zip_path = os.path.join(pop_tracker_folder, world + "_pack.zip")
-            root_folder = "src"
-            world_directory = os.path.join(pop_tracker_directory, world, "src")
-            if not pathlib.Path(world_directory).is_dir():
-                world_directory = os.path.join(pop_tracker_directory, world, "donkey_kong_country_3_randomizer_porygone")
-                root_folder ="donkey_kong_country_3_randomizer_porygone"
+            root_folder = None
+            source_folders = ["src",
+                              "donkey_kong_country_3_randomizer_porygone",
+                              "Dragon Warrior",
+                              "TheMessengerTrackPack",
+                              "sonic_adventure_2_battle_randomizer_porygone",
+                              "pack",
+                              "data",
+                              "super_mario_world_randomizer_porygone"]
+            for source in source_folders:
+                world_directory = os.path.join(pop_tracker_directory, world, source)
+                if pathlib.Path(world_directory).is_dir():
+                    root_folder = source
+                    break
+
+            if root_folder is None:
+                logging.error(f"No valid pop tracker source folder found, skipping {world}'s pop tracker")
+                continue
 
             with (zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED,
                                  compresslevel=9) as zf):
                 for path in pathlib.Path(world_directory).rglob("*"):
                     relative_path = os.path.join(*path.parts[path.parts.index(root_folder) + 1:])
-                    if "__MACOSX" in relative_path or ".DS_STORE" in relative_path or "__pycache__" in relative_path or ".gitignore" in relative_path or ".github" in relative_path or "build.sh" in relative_path or "buildfunctions.sh" in relative_path or ".vscode" in relative_path:
+                    exclusions = ["__MACOSX",
+                                  ".DS_STORE",
+                                  "__pycache__",
+                                  ".gitignore",
+                                  ".github",
+                                  "build.sh",
+                                  "buildfunctions.sh",
+                                  ".vscode",
+                                  ".idea"]
+                    if any(sub_string in relative_path for sub_string in exclusions):
                         continue
 
                     zf.write(path, relative_path)

@@ -78,9 +78,9 @@
                 <span class="link-spacer">|</span>
                 <a href="{{ world.web.ap_world }}">Version {{ world.web.server_version }}</a>
             {% endif %}
-            {% if world.web.files %}
+            {% if world.web.web_client %}
                 <span class="link-spacer">|</span>
-                <a href="{{ world.web.files }}">Additional Files</a>
+                <a href="{{ world.web.web_client }}">Web Client</a>
             {% endif %}
         </details>
         {% endfor %}

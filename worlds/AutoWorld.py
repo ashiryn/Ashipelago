@@ -235,8 +235,8 @@ class WebWorld(metaclass=WebWorldRegister):
     """link to the pop tracker for the world"""
     ap_world: Optional[str]
     """link to the ap world download"""
-    files: Optional[str]
-    """link to any additional files for the world such as mods/connectors"""
+    web_client: Optional[str]
+    """link to a web client for games that are web based"""
 
     options_page: Union[bool, str] = True
     """display a settings page. Can be a link to a specific page or external tool."""
