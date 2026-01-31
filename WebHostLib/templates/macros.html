@@ -51,8 +51,7 @@
                                 <a href="{{ url_for("download_slot_file", room_id=room.id, player_id=patch.player_id) }}" download>
                                     Download .lanky File...</a>
                             {% elif patch.game == "Final Fantasy XIV" %}
-                                <a href="{{ url_for("download_slot_file", room_id=room.id, player_id=patch.player_id) }}" download>
-                                    No .apmanual required for this game</a>
+                                    No .apmanual required for this version. Must use the Dalamud plugin.
                             {% else %}
                                 Unsupported game patch file for this game.
                             {% endif %}
