@@ -45,7 +45,7 @@ app.config["SECRET_KEY"] = bytes(socket.gethostname(), encoding="utf-8")
 # at what amount of worlds should scheduling be used, instead of rolling in the web-thread
 app.config["JOB_THRESHOLD"] = 1
 # after what time in seconds should generation be aborted, freeing the queue slot. Can be set to None to disable.
-app.config["JOB_TIME"] = 1200
+app.config["JOB_TIME"] = 3600
 app.config["GENERATOR_MEMORY_LIMIT"] = 4294967296
 app.config['SESSION_PERMANENT'] = True
 
