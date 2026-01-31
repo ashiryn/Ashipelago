@@ -39,12 +39,9 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python:
-          - {version: '3.12.6'}             # current
-          - {version: '3.13'}               # future
+          - {version: '3.12.6'}
         include:
-          - python: { version: '3.12.6' }   # current
-            os: windows-latest
-          - python: {version: '3.13'}       # future
+          - python: { version: '3.12.6' }
             os: windows-latest
 
     steps:
@@ -72,8 +69,7 @@ jobs:
         os:
           - ubuntu-latest
         python:
-          - { version: '3.12.6' }             # current
-          - { version: '3.13' }               # future
+          - { version: '3.12.6' }
 
     steps:
       - uses: actions/checkout@v4
