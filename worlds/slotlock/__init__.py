@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Any, Dict
-from BaseClasses import CollectionState, Item, ItemClassification, Location, MultiWorld, Region
+from BaseClasses import CollectionState, Item, ItemClassification, Location, MultiWorld, Region, Tutorial
 from Options import OptionSet, PerGameCommonOptions, Range, StartInventoryPool, Toggle, Choice, OptionDict
 import worlds
 from worlds import AutoWorld
+from worlds.AutoWorld import WebWorld
 from worlds.generic import GenericWorld
 from worlds.LauncherComponents import Component, components, icon_paths, launch_subprocess, Type
 from NetUtils import Hint, SlotType
@@ -38,10 +39,25 @@ class SlotLockOptions(PerGameCommonOptions):
     auto_hint_locked_items: AutoHintLockedItems
     associated_worlds: AssociatedWorlds
 
+class SlotLockWebWorld(WebWorld):
+    theme = "partyTime"
+
+    setup_en = Tutorial(
+        tutorial_name="Start Guide",
+        description="A guide to playing SlotLock.",
+        language="English",
+        file_name="setup_en.md",
+        link="setup/en",
+        authors=[""]
+    )
+
+    tutorials = [setup_en]
+
 class SlotLockWorld(AutoWorld.World):
     """Locks other player slots."""
 
     game = "SlotLock"
+    web = SlotLockWebWorld()
     options: SlotLockOptions
     options_dataclass = SlotLockOptions
     location_name_to_id = {f"Lock_{num+1}": num+10010 for num in range(50000)}
