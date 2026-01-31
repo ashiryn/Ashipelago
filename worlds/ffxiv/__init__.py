@@ -24,7 +24,7 @@ from .container import APManualFile
 
 from BaseClasses import CollectionState, ItemClassification, Item, Tutorial
 from Options import PerGameCommonOptions
-from worlds.AutoWorld import World
+from worlds.AutoWorld import World, WebWorld
 
 from .hooks.World import \
     hook_get_filler_item_name, before_create_regions, after_create_regions, \
@@ -35,6 +35,7 @@ from .hooks.World import \
     before_fill_slot_data, after_fill_slot_data, before_write_spoiler, \
     before_extend_hint_information, after_extend_hint_information, \
     after_collect_item, after_remove_item, before_generate_early, hook_interpret_slot_data
+
 
 class ManualWorld(World):
     __doc__ = world_description
@@ -618,33 +619,3 @@ class NonManualWorld(ManualWorld):
     location_name_to_id = location_name_to_id
     location_name_to_location = location_name_to_location
     location_name_groups = location_name_groups
-
-
-class FFXIVManualWebWorld(ManualWorld):
-    theme = "partyTime"
-
-    setup_en = Tutorial(
-        tutorial_name="Start Guide",
-        description="A guide to playing FFXIV Manual_Only.",
-        language="English",
-        file_name="setup_en.md",
-        link="setup/en",
-        authors=["Silasary"]
-    )
-
-    tutorials = [setup_en]
-
-
-class FFXIVWebWorld(NonManualWorld):
-    theme = "partyTime"
-
-    setup_en = Tutorial(
-        tutorial_name="Start Guide",
-        description="A guide to playing FFXIV.",
-        language="English",
-        file_name="setup_en.md",
-        link="setup/en",
-        authors=["Silasary"]
-    )
-
-    tutorials = [setup_en]
