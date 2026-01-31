@@ -7,7 +7,7 @@ import typing
 import logging
 import itertools
 
-from BaseClasses import ItemClassification, Location, LocationProgressType, Region, Item, MultiWorld, Tutorial
+from BaseClasses import ItemClassification, Location, LocationProgressType, Region, Item, MultiWorld
 from Fill import fill_restrictive
 
 from worlds.AutoWorld import WebWorld, World
@@ -38,16 +38,7 @@ class CrossCodeWebWorld(WebWorld):
 
     theme="ocean"
 
-    tutorials = [
-        Tutorial(
-            "Multiworld Setup Guide",
-            "A guide to setting up APBingo.",
-            "English",
-            "setup_en.md",
-            "setup/en",
-            ["N/A"],
-        )
-    ]
+    tutorials = []
 
     bug_report_page = "https://github.com/CodeTriangle/CCMultiworldRandomizer/blob/master/README.md#how-to-get-support"
 

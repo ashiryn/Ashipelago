@@ -470,6 +470,7 @@ class RestrictedUnpickler(pickle.Unpickler):
         # pep 8 specifies that modules should have "all-lowercase names" (options, not Options)
         if (module.lower().endswith("options")
                 # Ashipelago customization
+                or ".options." in module.lower()
                 or "games" in module.lower()):
             if module == "Options":
                 mod = self.options_module
@@ -480,7 +481,9 @@ class RestrictedUnpickler(pickle.Unpickler):
                                 self.options_module.PlandoItem, self.options_module.PlandoText)):
                 return obj
             # Ashipelago customization
-            if issubclass(obj, IntEnum):
+
+            from Options import OptionSet
+            if issubclass(obj, (IntEnum, OptionSet)):
                 return obj
         # Forbid everything else.
         raise pickle.UnpicklingError(f"global '{module}.{name}' is forbidden")

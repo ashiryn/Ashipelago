@@ -349,6 +349,11 @@ if not is_frozen():
             if not worldtype:
                 logging.error(f"Requested APWorld \"{worldname}\" does not exist.")
                 continue
+
+            if worldtype.hidden:
+                logging.info(f"Skipping build of \"{worldname}\" as it is marked as hidden.")
+                continue
+
             file_name = os.path.split(os.path.dirname(worldtype.__file__))[1]
             world_directory = os.path.join("worlds", file_name)
             if os.path.isfile(os.path.join(world_directory, "archipelago.json")):
@@ -361,7 +366,7 @@ if not is_frozen():
                 )
                 assert manifest["game"] == worldtype.game, (
                     f"World directory {world_directory} has an archipelago.json manifest file, but value of the "
-                    f"\"game\" field ({manifest['game']} does not equal the World class's game ({worldtype.game})."
+                    f"\"game\" field ({manifest['game']} does not equal the World class's game ({worldtype.game}))."
                 )
             else:
                 manifest = {}
