@@ -40,8 +40,8 @@ jobs:
     - name: Read custom .apworlds file
       id: read_apworlds
       run: |
-        FILE_CONTENTS=$(cat custom_worlds.txt)
-        SINGLE_LINE="${FILE_CONTENT//$\'\\n\'/ }"
+        tr '\n' ' ' < custom_worlds.txt > cleaned_custom_worlds.txt
+        FILE_CONTENTS=$(cat cleaned_custom_worlds.txt)
         echo "world_list=$SINGLE_LINE" >> $GITHUB_OUTPUT
       shell: bash
     - name: Install dependencies
