@@ -27,16 +27,14 @@ jobs:
         python-version: 3.12.6
     - name: Is ready for release
       run: |
-        TITLE=$(github.event.pull_request.title)
-        echo pull request name: TITLE
-        CONDITION=$(startsWith(github.event.pull_request.title, 'Worlds') == true)
-        echo start with conditional: CONDITION
+        echo pull request name: ${{ github.event.pull_request.title }}"
+        echo start with conditional: ${{ startsWith(github.event.pull_request.title, 'Worlds') == true }}"
     - name: Get current date
-      if: startsWith(github.event.pull_request.title, 'Worlds') == true
+      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       id: date
       run: echo "NOW=$(TZ=":America/New_York" date +'%Y-%m-%d')" >> $GITHUB_ENV
     - name: Create Release
-      if: startsWith(github.event.pull_request.title, 'Worlds') == true
+      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       uses: softprops/action-gh-release@v2.5.0
       with:
         draft: true
@@ -66,7 +64,7 @@ jobs:
         TRACKER_COUNT=$(find "build/pop_trackers" -maxdepth 1 -mindepth 1 | wc -l)
         echo "Built TRACKER_COUNT pop tracker packs"
     - name: Add to Release
-      if: startsWith(github.event.pull_request.title, 'Worlds') == true
+      if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       uses: softprops/action-gh-release@v2.5.0
       with:
         draft: true
