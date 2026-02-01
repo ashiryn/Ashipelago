@@ -56,9 +56,9 @@ jobs:
         export PYTHONPATH=$(pwd)
         timeout 600 python Launcher.py "Build Custom APWorlds" ${{steps.read_apworlds.outputs.world_list}}
         WORLD_COUNT=$(find "build/apworlds" -maxdepth 1 -mindepth 1 | wc -l)
-        echo "Built WORLD_COUNT .apworlds"
+        echo "Built ${{ WORLD_COUNT }} .apworlds"
         TRACKER_COUNT=$(find "build/pop_trackers" -maxdepth 1 -mindepth 1 | wc -l)
-        echo "Built TRACKER_COUNT pop tracker packs"
+        echo "Built ${{ TRACKER_COUNT }} pop tracker packs"
     - name: Add to Release
       if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       uses: softprops/action-gh-release@v2.5.0
