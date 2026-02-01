@@ -27,9 +27,9 @@ jobs:
         python-version: 3.12.6
     - name: Is ready for release
       run: |
-        TITLE=github.event.pull_request.title
+        TITLE=$(github.event.pull_request.title)
         echo pull request name: TITLE
-        CONDITION=startsWith(github.event.pull_request.title, 'Worlds') == true
+        CONDITION=$(startsWith(github.event.pull_request.title, 'Worlds') == true)
         echo start with conditional: CONDITION
     - name: Get current date
       if: startsWith(github.event.pull_request.title, 'Worlds') == true
