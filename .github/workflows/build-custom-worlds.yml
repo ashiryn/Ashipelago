@@ -42,7 +42,7 @@ jobs:
       run: |
         FILE_CONTENTS=$(cat custom_worlds.txt)
         SINGLE_LINE="${FILE_CONTENT//$\'\\n\'/ }"
-        echo "world_list=SINGLE_LINE" >> $GITHUB_OUTPUT
+        echo "world_list=$SINGLE_LINE" >> $GITHUB_OUTPUT
       shell: bash
     - name: Install dependencies
       run: |
