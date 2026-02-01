@@ -6,7 +6,7 @@ name: Build Custom .apworlds
 on:
   push:
   pull_request:
-    types: [closed]
+    types: [synchronize, closed]
     branches:
       - ashipelago
 
@@ -27,8 +27,8 @@ jobs:
         python-version: 3.12.6
     - name: Is ready for release
       run: |
-        echo pull request name: ${{ github.event.pull_request.title }}"
-        echo start with conditional: ${{ startsWith(github.event.pull_request.title, 'Worlds') == true }}"
+        echo pull request name: ${{ github.event.pull_request.title }}
+        echo start with conditional: ${{ startsWith(github.event.pull_request.title, 'Worlds') == true }}
     - name: Get current date
       if: startsWith(github.event.pull_request.title, 'Worlds/') == true
       id: date
