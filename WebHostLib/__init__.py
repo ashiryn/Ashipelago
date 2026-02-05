@@ -48,6 +48,8 @@ app.config["JOB_THRESHOLD"] = 1
 app.config["JOB_TIME"] = 3600
 app.config["GENERATOR_MEMORY_LIMIT"] = 4294967296
 app.config['SESSION_PERMANENT'] = True
+# 2 MB, needed for large option pages such as SC2
+app.config['MAX_FORM_MEMORY_SIZE'] = 2 * 1024 * 1024
 
 # waitress uses one thread for I/O, these are for processing of views that then get sent
 # archipelago.gg uses gunicorn + nginx; ignoring this option
