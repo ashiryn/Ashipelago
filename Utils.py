@@ -953,6 +953,7 @@ def title_sorted(data: typing.Iterable, key=None, ignore: typing.AbstractSet[str
     return sorted(data, key=lambda i: sorter(key(i)) if key else sorter(i))
 
 
+# Ashipelago customization
 def tutorials_sorted(data: typing.Iterable, worlds: Dict[str, Any]):
     def sorter(key_or_name):
         name = key_or_name[0]
@@ -966,6 +967,7 @@ def tutorials_sorted(data: typing.Iterable, worlds: Dict[str, Any]):
     return sorted(data, key=lambda k: sorter(k))
 
 
+# Ashipelago customization
 def world_sorted(data: typing.Iterable, worlds: Dict[str, Any]):
     def sorter(key_or_name):
         name = key_or_name

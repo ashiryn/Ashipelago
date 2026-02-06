@@ -129,6 +129,8 @@ def tutorial_landing():
                 "authors": tutorial.authors,
                 "language": tutorial.language
             }
+            
+    # Ashipelago customization
     worlds = tutorials_sorted(worlds.items(), worlds)
     sorted_worlds = {}
     for world_name, world_type in worlds:
