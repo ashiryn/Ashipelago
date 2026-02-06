@@ -129,7 +129,7 @@ def tutorial_landing():
                 "authors": tutorial.authors,
                 "language": tutorial.language
             }
-            
+
     # Ashipelago customization
     worlds = tutorials_sorted(worlds.items(), worlds)
     sorted_worlds = {}
@@ -298,5 +298,5 @@ def get_sitemap():
     for game, world in AutoWorldRegister.world_types.items():
         if not world.hidden:
             has_settings: bool = isinstance(world.web.options_page, bool) and world.web.options_page
-            available_games.append({ 'title': game, 'has_settings': has_settings })
+            available_games.append({ 'title': getattr(world.web, "display_name", None) or game, 'has_settings': has_settings })
     return render_template("siteMap.html", games=available_games)

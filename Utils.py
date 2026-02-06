@@ -954,6 +954,18 @@ def title_sorted(data: typing.Iterable, key=None, ignore: typing.AbstractSet[str
 
 
 # Ashipelago customization
+def site_map_title_sorted(data: typing.Iterable, key=None):
+    def sorter(element: Union[str, Dict[str, Any]]) -> str:
+        if (not isinstance(element, str)):
+            element = element["title"]
+
+        parts = element.split(maxsplit=1)
+        return element.lower()
+
+    return sorted(data, key=lambda i: sorter(key(i)) if key else sorter(i))
+
+
+# Ashipelago customization
 def tutorials_sorted(data: typing.Iterable, worlds: Dict[str, Any]):
     def sorter(key_or_name):
         name = key_or_name[0]

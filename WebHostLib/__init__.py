@@ -10,7 +10,7 @@ from flask_compress import Compress
 from pony.flask import Pony
 from werkzeug.routing import BaseConverter
 
-from Utils import get_file_safe_name, world_sorted
+from Utils import get_file_safe_name, world_sorted, title_sorted, site_map_title_sorted
 
 UPLOAD_FOLDER = os.path.relpath('uploads')
 LOGS_FOLDER = os.path.relpath('logs')
@@ -93,6 +93,7 @@ class B64UUIDConverter(BaseConverter):
 app.url_map.converters["suuid"] = B64UUIDConverter
 app.jinja_env.filters["suuid"] = to_url
 app.jinja_env.filters["sorted_worlds"] = world_sorted
+app.jinja_env.filters["title_sorted"] = site_map_title_sorted
 
 
 def register() -> None:
