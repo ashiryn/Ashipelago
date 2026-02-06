@@ -28,7 +28,9 @@ class MMRWebWorld(WebWorld):
 
 
 class MMRWorld(World):
-    """A Zelda game we're not completely burnt out on."""
+    """
+    A PC Port of Majora's Mask. This mind-bending follow-up to Ocarina of Time sparkles with an artistic flair and presents a premise that shatters the foundation upon which most games are built. Perpetually reliving the same three days and three nights, Link is able to explore his world and relate to other characters like never before. Plot is often an afterthought in video games, but it is the driving force in Majora's Mask. The storyline meanders through the game like a living creature, poking around here and there to reveal greater insight into the land of Termina.
+    """
 
     game = "Majora's Mask Recompiled"
     data_version = 1

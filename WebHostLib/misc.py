@@ -13,7 +13,8 @@ from worlds.AutoWorld import AutoWorldRegister, World
 from . import app, cache
 from .markdown import render_markdown
 from .models import Seed, Room, Command, UUID, uuid4
-from Utils import title_sorted
+from Utils import title_sorted, world_sorted, tutorials_sorted
+
 
 class WebWorldTheme(StrEnum):
     DIRT = "dirt"
@@ -128,9 +129,13 @@ def tutorial_landing():
                 "authors": tutorial.authors,
                 "language": tutorial.language
             }
+    worlds = tutorials_sorted(worlds.items(), worlds)
+    sorted_worlds = {}
+    for world_name, world_type in worlds:
+        sorted_worlds[world_name] = world_type
     tutorials = {world_name: tutorials for world_name, tutorials in title_sorted(
-        tutorials.items(), key=lambda element: "\x00" if element[0] == "Archipelago" else worlds[element[0]].game)}
-    return render_template("tutorialLanding.html", worlds=worlds, tutorials=tutorials)
+        tutorials.items(), key=lambda element: "\x00" if element[0] == "Archipelago" else sorted_worlds[element[0]].game)}
+    return render_template("tutorialLanding.html", worlds=sorted_worlds, tutorials=tutorials)
 
 
 @app.route('/faq/<string:lang>/')

@@ -37,6 +37,13 @@ class ClairObscurSettings(settings.Group):
     """
 
 class ClairObscurWorld(World):
+    """
+    Clair Obscur: Expedition 33 is a ground-breaking turn-based RPG with unique real-time mechanics, making battles more immersive and addictive than ever. Explore a fantasy world inspired by Belle Époque France in which you battle devastating enemies.
+
+    Once a year, the Paintress wakes and paints upon her monolith. Paints a cursed number. Everyone of that age turns to smoke and fades away. Year by year, that number ticks down and more of us are erased. Tomorrow she’ll wake and paint '33'. Tomorrow we depart on our final mission - Destroy the Paintress, so she can never paint death again.
+
+    We are Expedition 33.
+    """
     game = "Clair Obscur Expedition 33"
     web = WebClairObscur()
     topology_present = True

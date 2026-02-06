@@ -3,7 +3,7 @@ window.addEventListener('load', () => {
   const toggleButtons = document.querySelectorAll('details');
 
   // Favorites functionality
-  const FAVORITES_STORAGE_KEY = 'mwgg_favorite_games';
+  const FAVORITES_STORAGE_KEY = 'ashipelago_favorite_games';
   const favoritesSection = document.getElementById('favorites-section');
   const favoritesList = document.getElementById('favorites-list');
   let favoriteGames = new Set();
@@ -178,7 +178,7 @@ window.addEventListener('load', () => {
   gameSearch.addEventListener('input', (evt) => {
     if (!evt.target.value.trim()) {
       // If input is empty, display all games as collapsed
-      return toggleButtons.forEach((header) => {
+      toggleButtons.forEach((header) => {
         header.style.display = null;
         header.removeAttribute('open');
       });

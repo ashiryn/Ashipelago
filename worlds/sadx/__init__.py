@@ -33,6 +33,9 @@ class SonicAdventureDXWeb(WebWorld):
 
 
 class SonicAdventureDXWorld(World):
+    """
+    Sonic Adventure is a 1998 platform game developed by Sonic Team and published by Sega for the Dreamcast. It was the first main Sonic the Hedgehog game to feature 3D gameplay. It follows Sonic the Hedgehog, Miles "Tails" Prower, Knuckles the Echidna, Amy Rose, Big the Cat, and E-102 Gamma in their quests to collect the Chaos Emeralds and stop Doctor Robotnik from unleashing Chaos, an ancient evil. Controlling one of the six characters—each with their own abilities—players complete levels to progress the story.
+    """
     game = "Sonic Adventure DX"
     web = SonicAdventureDXWeb()
     starter_setup: StarterSetup = StarterSetup()

@@ -52,7 +52,9 @@ class Bomb64WebWorld(WebWorld):
 
 
 class Bomb64World(World):
-    """The greatest game of all time."""
+    """
+    In Bomberman 64, hop between four different elemental worlds (each with its own set of baddies) before going after the main nasty who threatens Planet Bomber. The multi-player Battle mode offers even more explosive action!
+    """
 
     game = "Bomberman 64"
     data_version = 1

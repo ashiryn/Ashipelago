@@ -64,7 +64,7 @@ class DKCWeb(WebWorld):
 
 class DKCWorld(World):
     """
-    monke
+    Join DK and Diddy on a quest to recover their stolen banana hoard. Traverse more than 30 challenging levels, take a ride on animal buddies and survive the madcap mine cart sequences. You'd be bananas not to play Donkey Kong Country!
     """
     game = "Donkey Kong Country"
     web = DKCWeb()

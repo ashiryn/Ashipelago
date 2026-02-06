@@ -57,7 +57,7 @@ class SohSettings(Group):
 
 
 class SohWorld(World):
-    """A PC Port of Ocarina of Time"""
+    """A PC Port of Ocarina of Time. The Legend of Zelda: Ocarina of Time is a 3D action/adventure game. Travel through Hyrule in two time periods, learn magical ocarina songs, and explore twelve dungeons on your quest. Use Link's many items and abilities to rescue the Seven Sages, and then confront Ganondorf to save Hyrule! """
 
     game = "Ship of Harkinian"
     web = SohWebWorld()

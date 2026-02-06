@@ -27,7 +27,7 @@ class WordSearchWebWorld(WebWorld):
 
 
 class WordSearchWorld(World):
-    """A brand new take on the world famous word guessing game."""
+    """A brand new take on the classic 'find a word' game."""
 
     game = "WordSearch"
     web = WordSearchWebWorld()

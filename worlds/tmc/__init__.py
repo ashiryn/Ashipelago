@@ -89,7 +89,9 @@ class MinishCapSettings(settings.Group):
 
 
 class MinishCapWorld(World):
-    """ Randomizer methods/data for generation """
+    """
+    Link returns in the adventure The Legend of Zelda: The Minish Cap! Using the power of a mystical hat called The Minish Cap, the Hylian hero will shrink down for a massive quest... on a microscopic scale!
+    """
 
     game = "The Minish Cap"
     web = MinishCapWebWorld()

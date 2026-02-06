@@ -953,6 +953,30 @@ def title_sorted(data: typing.Iterable, key=None, ignore: typing.AbstractSet[str
     return sorted(data, key=lambda i: sorter(key(i)) if key else sorter(i))
 
 
+def tutorials_sorted(data: typing.Iterable, worlds: Dict[str, Any]):
+    def sorter(key_or_name):
+        name = key_or_name[0]
+        world = worlds[name]
+
+        raw = getattr(world.web, "display_name", None) or world.game or name
+        if world.game == "Archipelago":
+            raw = "\x00"
+        return raw.lower()
+
+    return sorted(data, key=lambda k: sorter(k))
+
+
+def world_sorted(data: typing.Iterable, worlds: Dict[str, Any]):
+    def sorter(key_or_name):
+        name = key_or_name
+        world = worlds[name]
+
+        raw = getattr(world.web, "display_name", None) or world.game or name
+
+        return raw.lower()
+
+    return sorted(data, key=lambda k: sorter(k))
+
 def read_snes_rom(stream: BinaryIO, strip_header: bool = True) -> bytearray:
     """Reads rom into bytearray and optionally strips off any smc header"""
     buffer = bytearray(stream.read())

@@ -29,6 +29,9 @@ class OuterWildsWebWorld(WebWorld):
 
 
 class OuterWildsWorld(World):
+    """
+    Outer Wilds is an action-adventure video game set in a small planetary system in which the player character, an unnamed space explorer referred to as the Hatchling, explores and investigates its mysteries in a self-directed manner.
+    """
     game = "Outer Wilds"
     web = OuterWildsWebWorld()
 

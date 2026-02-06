@@ -20,8 +20,8 @@ from worlds.rac3.web_world import RaC3Web
 
 
 class RaC3World(World):
-    f"""
-    {RAC3OPTION.GAME_TITLE_FULL} is a third person action shooter.
+    """
+    Ratchet & Clank 3 is a third person action shooter.
     Blast your enemies with over the top weaponry and save the galaxy from total disaster.
     """
 

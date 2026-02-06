@@ -19,7 +19,7 @@
     text-transform: none;
 }
 
-#games h2, #games details summary.exp{
+#games h2, #games details summary.experimental{
     color: #f58505;
     margin-bottom: 2px;
     text-transform: none;
@@ -65,7 +65,7 @@
 
 .favorites-divider {
     border: none;
-    border-top: 1px solid #b44ad9;
+    border-top: 1px solid white;
     margin: 1rem 0;
     opacity: 0.7
 }
@@ -77,25 +77,25 @@
     font-size: 0.8em;
     margin-left: 0.5rem;
     color: transparent;
-    text-shadow: 0 0 0 #b44ad9;
+    text-shadow: 0 0 0 #711173;
     transition: all 0.2s ease;
     user-select: none;
 }
 
 .star-icon:hover {
     transform: scale(1.1);
-    color: #ea166c;
-    text-shadow: 0 0 0 #ea166c;
+    color: #137311;
+    text-shadow: 0 0 0 #137311;
 }
 
 .star-icon.favorited {
-    color: #ea166c;
-    text-shadow: 0 0 0 #ea166c;
+    color: #137311;
+    text-shadow: 0 0 0 #137311;
 }
 
 .star-icon.favorited:hover {
-    color: #b44ad9;
-    text-shadow: 0 0 0 #b44ad9;
+    color: #711173;
+    text-shadow: 0 0 0 #711173;
 }
 
 /* Favorite Game Item Styles */
@@ -110,16 +110,16 @@
 .favorite-game-item details summary {
     cursor: pointer;
     font-weight: bold;
-    color: #b44ad9;
+    color: #711173;
     font-size: 0.9em;
 }
 
 .favorite-game-item .star-icon {
-    color: #ea166c;
-    text-shadow: 0 0 0 #ea166c;
+    color: #137311;
+    text-shadow: 0 0 0 #137311;
 }
 
 .favorite-game-item .star-icon:hover {
-    color: #b44ad9;
-    text-shadow: 0 0 0 #b44ad9;
+    color: #711173;
+    text-shadow: 0 0 0 #711173;
 }

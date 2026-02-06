@@ -25,6 +25,9 @@ class FabricMinecraftWebWorld(WebWorld):
     tutorials = [setup_en]
 
 class FabricMinecraftWorld(World):
+    """
+    Minecraft is a game made up of blocks, creatures, and community. You can survive the night or build a work of art – the choice is all yours.
+    """
     game = "Minecraft Fabric"
     web = FabricMinecraftWebWorld()
     options_dataclass = FMCOptions

@@ -31,7 +31,7 @@ class Spyro2Web(WebWorld):
 
 class Spyro2World(World):
     """
-    Spyro 2 is a game about a purple dragon who wants to go on vacation.
+    Spyro 2: Ripto's Rage! is a 1999 platforming adventure game where the purple dragon Spyro travels to the realm of Avalar to stop the evil sorcerer Ripto. Players collect talismans and orbs by completing minigames and challenges to open new areas and progress the story, all while learning new abilities like swimming and climbing. The game features vibrant worlds, humorous characters, and a focus on exploration and problem-solving.
     """
 
     game: str = "Spyro 2"

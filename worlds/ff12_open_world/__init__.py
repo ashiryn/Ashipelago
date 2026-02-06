@@ -61,7 +61,7 @@ class FF12OpenWorldWebWorld(WebWorld):
 
 
 class FF12OpenWorldWorld(World):
-    """TODO"""
+    """Two years have passed since the war in which the vast and militaristic Arcadian Empire annihilated the kingdom of Dalmasca... Vaan, a young man who lost his family to the fires of war, lives a stoic existence in the occupied city of Rabanastre, while dreaming of a life of freedom, soaring the skies as a Sky Pirate. Princess Ashe, the last remaining member of the Dalmascan royal family, vows revenge on the empire, and secretly leads a resistance in the hopes of restoring her homeland. Brought together in a chaotic age, the hopes and dreams of these two heroes will unite the fates of the people and change the destiny of nations."""
 
     game = "Final Fantasy 12 Open World"
     data_version = 3

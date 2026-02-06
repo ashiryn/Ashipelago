@@ -50,20 +50,14 @@
             <hr class="favorites-divider">
         </div>
     
-        {% for game_name in worlds | title_sorted %}
+        {% for game_name in worlds | sorted_worlds(worlds=worlds) %}
         {% set world = worlds[game_name] %}
         <details data-game="{{ game_name }}">
-            {% if world.is_experimental %}
-            <summary class="h2 exp">
+            <summary {% if world.is_experimental %} class="h2 experimental"  {% else %} class="h2" {% endif %}>
+                {{ world.web.display_name | default(game_name) }}
                 <span class="star-icon" data-game="{{ game_name }}" title="Add to favorites">★</span>
-                {{ game_name }} *Experimental*
+                {% if world.is_experimental %} *Experimental*{% endif %}
             </summary>
-            {% else %}
-            <summary class="h2">
-                {{ game_name }}
-                <span class="star-icon" data-game="{{ game_name }}" title="Add to favorites">★</span>
-            </summary>
-            {% endif %}
             {{ world.__doc__ | default("No description provided.", true) }}<br />
             <a href="{{ url_for("game_info", game=game_name, lang="en") }}">Game Page</a>
             {% if world.web.tutorials %}
