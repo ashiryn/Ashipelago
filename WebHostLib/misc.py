@@ -295,8 +295,12 @@ def get_datapackage():
 @cache.cached()
 def get_sitemap():
     available_games: List[Dict[str, Union[str, bool]]] = []
+    # Ashipelago customization
+    available_worlds: Dict[str, str] = {}
     for game, world in AutoWorldRegister.world_types.items():
         if not world.hidden:
             has_settings: bool = isinstance(world.web.options_page, bool) and world.web.options_page
-            available_games.append({ 'title': getattr(world.web, "display_name", None) or game, 'has_settings': has_settings })
-    return render_template("siteMap.html", games=available_games)
+            world_name = getattr(world.web, "display_name", None) or game
+            available_games.append({ 'title': world_name, 'has_settings': has_settings })
+            available_worlds[world_name] = game
+    return render_template("siteMap.html", games=available_games, world_map=available_worlds)
