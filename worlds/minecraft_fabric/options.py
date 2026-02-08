@@ -24,20 +24,6 @@ class GoalCondition(Choice):
     option_ruby_hunt = 4
     default = 0
 
-class RandomizerDifficulty(Choice):
-    """
-    This determines where the placement of some items should be! The Items that will be effected by this setting are...
-    Progressive Weapons (x2), Progressive Armor (x3), Progressive Archery (x1), Jump, and Sprint
-
-    easy - These Items will appear before the player can access the Nether
-    normal - These Items will appear before beating the Wither or End Access
-    hard - Makes it so that these items can appear anywhere, potentially even outside your goal!
-    """
-    option_easy = 0
-    option_normal = 1
-    option_hard = 2
-    default = 1
-
 class AdvancementsRequiredToGoal(Range):
     """
     Determines the number of advancements needed in order to beat the game! These Advancements are required for goaling
@@ -50,33 +36,33 @@ class AdvancementsRequiredToGoal(Range):
     range_end = 1000
     default = 50
 
-class ExcludeUnreasonableAdvancements(Toggle):
+class ExcludedLocationTypes(OptionSet):
     """
-    Makes it so extremely hard Advancements (such as "How Did We Get Here?" or "Adventuring Time")
-    will not have checks
-    """
-    display_name = "Exclude Unreasonable Advancements"
-    default = True
+    Determines Blacklisted Locations in the Randomizer
+    If a Location Category is given here, Checks won't appear in locations categorized under it
 
-class ExcludeHardAdvancements(Toggle):
-    """
-    Makes it so hard Advancements (such as "Cover Me in Debris" or "A Complete Catalogue")
-    will not have checks
-    """
-    display_name = "Exclude Hard Advancements"
-    default = True
+    This Wiki Page details all locations that're blacklisted via these settings:
+    https://modded.wiki/w/Fabric_Archipelago_Mod:Optional_Locations
 
-class ExcludeExplorationAdvancements(Toggle):
+    Options:
+        "Hard" - Disables Locations that're Hard
+        "Exploration" - Disables Locations that might require Exploration
+        "Unreasonable" - Disables Location's that're EXTREMELY Hard
     """
-    Makes it so Advancements that require a lot of exploration (such as "Sound of Music" or "Whatever Floats Your Goat!")
-    will not have checks
-    """
-    display_name = "Exclude Exploration Locations"
-    default = False
+    display_name = "Excluded Locations"
+    default = {
+        "Hard",
+        "Unreasonable"
+    }
+    valid_keys = {
+        "Hard",
+        "Exploration",
+        "Unreasonable"
+    }
 
 class SpeedRunnerMode(Toggle):
     """
-    Makes it so Beds are a required check for defeating the Ender Dragon
+    Makes it so Beds are a required item for defeating the Ender Dragon
     """
     display_name = "Speedrunner Mode"
     default = True
@@ -106,19 +92,9 @@ class RubyPercentageNeeded(Range):
     range_end = 100
     default = 100
 
-class KeepInventory(Toggle):
-    """
-    Prevents you from dropping your items when you die!
-    """
-    display_name = "Keep Inventory"
-    default = True
-
 class Itemsanity(Toggle):
     """
     Enables "Itemsanity" which causes items obtainable in Survival to be checks
-
-    (Not All Items become Itemsanity Checks, for the list of items without checks, click the link)
-    (https://docs.google.com/document/d/1igxLuOAG1fHOQkJi1UyKVB2nz2pa8gu4DX2h61NtWic/edit?tab=t.0)
     """
     display_name = "Itemsanity"
     default = False
@@ -133,38 +109,184 @@ class ItemsanityLocalFill(Range):
     range_end = 98
     default = 90
 
+class ExcludedFromItemsanity(OptionSet):
+    """
+    Determines certain Items that shouldn't appear in Itemsanity
+    Primarily used to blacklist Items that are Tedious or VERY RNG heavy
+
+    Options:
+        Discs - Music Discs
+        Rare Ores - Ores that are extremely rare (such as Deepslate Emerald)
+        Mob Heads - Mob Heads that're only dropped from Charged Creeper Explosions
+        Netherite Gear - Netherite Tools, Armor, and Netherite Smithing Template
+        Trims - Smithing Templates that're used for Trims (Doesn't include Upgrade Templates)
+        Sherds - Pottery Sherds
+    """
+    display_name = "Excluded From Itemsanity"
+    default = {
+        "Discs",
+        "Rare Ores",
+        "Mob Heads",
+        "Netherite Gear",
+        "Trims",
+        "Sherds"
+    }
+    valid_keys = {
+        "Discs",
+        "Rare Ores",
+        "Mob Heads",
+        "Netherite Gear",
+        "Trims",
+        "Sherds"
+    }
+
+class EmptyFillPercentage(Range):
+    """
+    Replaces a certain amount of Non-Trap Junk Items with Items that do nothing.
+    This option is primarily for preventing massive amounts of inventory clutter when Itemsanity is Enabled
+    """
+    display_name = "Empty Fill Percentage"
+    range_start = 0
+    range_end = 100
+    default = 0
 
 ########################################################################################################################
-# ABILITIES ############################################################################################################
+# Difficulty Options ###################################################################################################
 ########################################################################################################################
 
-class RandomizeSwim(Toggle):
+class DifficultyOption(OptionSet):
     """
-    Removes the ability to enter water, and adds a Swim Item to the pool.
+    Base Class for Difficulty
     """
-    display_name = "Randomize Swim"
-    default = False
+    default = {}
+    valid_keys = {
+        "Iron Weapons",
+        "Iron Armor",
+        "Bow",
+        "Jump",
+        "Sprint",
+        "Beds"
+    }
 
-class RandomizeChestStorage(Toggle):
+class ShouldHaveBeforeNetherAccess(DifficultyOption):
     """
-    Removes the ability to craft and use chests (and similar storage containers), and adds a Chest Item to the pool.
-    """
-    display_name = "Randomize Chests"
-    default = False
+    Makes it so certain Items are required in Logic before Nether Access
 
-class RandomizeSprint(Toggle):
-    """
-    Whether your Sprint ability should or Shouldn't be Randomized
-    """
-    display_name = "Randomize Sprint"
-    default = False
+    Used to help make the Randomizer Easier or Harder
 
-class RandomizeJump(Toggle):
+    Available Items
+        "Iron Weapons"
+        "Iron Armor"
+        "Bow"
+        "Jump"
+        "Sprint"
+        "Beds"
     """
-    Whether your Jump ability should or Shouldn't be Randomized
+    display_name = "Required Before Nether"
+    default = {}
+
+
+class ShouldHaveBeforeWitherOrDragon(DifficultyOption):
     """
-    display_name = "Randomize Jump"
-    default = False
+    Makes it so certain Items are required in Logic before you need
+    to fight the Ender Dragon or Wither
+
+    Used to help make the Randomizer Easier or Harder
+
+    Available Items
+        "Iron Weapons"
+        "Iron Armor"
+        "Bow"
+        "Jump"
+        "Sprint"
+        "Beds"
+    """
+    display_name = "Required Before Wither or Dragon"
+    default = {
+        "Iron Weapons",
+        "Iron Armor",
+        "Bow",
+        "Jump",
+        "Sprint",
+        "Beds"
+    }
+
+class ShouldHaveBeforeRaids(DifficultyOption):
+    """
+    Makes it so certain Items are required in Logic before you need
+    to fight a Raid
+
+    Used to help make the Randomizer Easier or Harder
+
+    Available Items
+        "Iron Weapons"
+        "Iron Armor"
+        "Bow"
+        "Jump"
+        "Sprint"
+        "Beds"
+    """
+    display_name = "Required Before Raids"
+    default = {
+        "Iron Weapons",
+        "Iron Armor",
+        "Jump"
+    }
+
+########################################################################################################################
+# General Options ######################################################################################################
+########################################################################################################################
+
+class KeepInventory(Toggle):
+    """
+    Prevents you from dropping your items when you die!
+    """
+    display_name = "Keep Inventory"
+    default = True
+
+class RandomizedAbilities(OptionSet):
+    """
+    Determines which abilities and items will be added as items in the item pool
+    If an ability is not present in the list they will be treated as unlocked from the start
+
+    Lockable Abilities:
+        "Chests" - Removes the ability to craft and use chests (and similar storage containers), and adds Chests to the Item pool.
+        "Jump" - Removes the ability to jump, and adds Jumping to the Item pool.
+        "Sprint" - Removes the ability to run, and adds Sprint to the Item pool.
+        "Swim" - Removes the ability to enter water, and adds Swim to the Item pool.
+    """
+    display_name = "Ability Shuffle"
+    default = {}
+    valid_keys = {
+        "Chests",
+        "Jump",
+        "Sprint",
+        "Swim"
+    }
+
+class TimeSavingOptions(OptionSet):
+    """
+    Decrease Wait times or Increase likelihood for various events that can occur in the game
+
+    Options:
+        "Wither Skulls" - Increases the 2.5% Chance for Wither Skulls to drop to 25%
+        "Rabbits Foot" - Increases the 10% Chance for Rabbit's Foot to drop to 50%
+        "Drowned Items" - Increases the Chance for a Drowned to drop the items they're holding to 100%
+        "Copper Oxidation" - Increases the Chance for Copper Blocks to attempt to Oxidize from 5% to 55%
+    """
+    display_name = "Time Saving Options"
+    default = {
+        "Wither Skulls",
+        "Rabbits Foot",
+        "Drowned Items",
+        "Copper Oxidation",
+    }
+    valid_keys = {
+        "Wither Skulls",
+        "Rabbits Foot",
+        "Drowned Items",
+        "Copper Oxidation",
+    }
 
 ########################################################################################################################
 # TRAP STUFF ###########################################################################################################
@@ -257,33 +379,28 @@ class TrapLink(Toggle):
     display_name = "TrapLink"
     default = False
 
-# class EnabledMods(OptionSet):
-#     """List Compatible Mods here to include their checks in the game"""
-#     display_name = "Mods"
-#     rich_text_doc = True
-
 @dataclass
 class FMCOptions(PerGameCommonOptions):
     # Goal Related Options
     goal_condition: GoalCondition
-    randomizerDifficulty: RandomizerDifficulty
     # Advancements
     advancements_required_for_goal: AdvancementsRequiredToGoal
-    exclude_unreasonable_advancements: ExcludeUnreasonableAdvancements
-    exclude_hard_advancements: ExcludeHardAdvancements
-    exclude_exploration_advancements: ExcludeExplorationAdvancements
+    excluded_locations: ExcludedLocationTypes
     speedrunner_mode: SpeedRunnerMode
     percentage_of_rubies_needed: RubyPercentageNeeded
     total_rubies: TotalRubiesInGame
-    keep_inventory: KeepInventory
-    # Itemsanity
+    # Sanity Options
     itemsanity: Itemsanity
     itemsanity_local_fill: ItemsanityLocalFill
-    # Abilities
-    randomize_swim: RandomizeSwim
-    randomize_chests: RandomizeChestStorage
-    randomize_sprint: RandomizeSprint
-    randomize_jump: RandomizeJump
+    excluded_from_itemsanity: ExcludedFromItemsanity
+    empty_fill_percentage: EmptyFillPercentage
+    # General Settings
+    required_before_nether: ShouldHaveBeforeNetherAccess
+    required_before_bosses: ShouldHaveBeforeWitherOrDragon
+    required_before_raids: ShouldHaveBeforeRaids
+    keep_inventory: KeepInventory
+    randomized_abilities: RandomizedAbilities
+    time_saving_options: TimeSavingOptions
     # Traps
     trap_fill_percentage: TrapFillPercentage
     reverse_controls_trap_weight: ReverseControlsTrapWeight

@@ -7,7 +7,7 @@ class RAC3OPTION:
     GAME_TITLE = "Rac3"
     GAME_TITLE_FULL = "Ratchet & Clank 3"
     VERSION = "Version"
-    VERSION_NUMBER = "0.4.0"
+    VERSION_NUMBER = "0.4.1"
     START_INVENTORY_FROM_POOL = "Start Inventory From Pool"
     STARTING_WEAPONS = "Starting Weapons"
     BOLT_AND_XP_MULTIPLIER = "Bolt and XP Multiplier"

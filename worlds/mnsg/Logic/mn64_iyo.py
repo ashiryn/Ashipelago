@@ -42,7 +42,7 @@ LogicRegions = {
             ),
         ],
         exits=[
-            MN64TransitionFront("DogoHotsprings", lambda l: l.mini_ebismaru and l.ebismaru),
+            MN64TransitionFront("DogoHotsprings", lambda l: l.mini_ebisumaru and l.ebisumaru),
             MN64TransitionFront("TosaBridge", lambda l: True, type=MN64DoorType.DOOR),
             MN64TransitionFront("IyoCoffeeShop", lambda l: True),
         ],
@@ -84,7 +84,7 @@ LogicRegions = {
         locations=[
             MN64LocationLogic(
                 "Silver Fortune Doll",
-                lambda l: l.mini_ebismaru and l.ebismaru,
+                lambda l: l.mini_ebisumaru and l.ebisumaru,
                 MN64Items.SILVER_FORTUNE_DOLL,
                 flag_id=0x00E4,
                 instance_id=0x0D,
@@ -92,7 +92,7 @@ LogicRegions = {
         ],
         exits=[
             MN64TransitionFront("IyoHills", lambda l: True, type=MN64DoorType.DOOR),
-            MN64TransitionFront("GhostToysCastleEntrance", lambda l: l.chain_pipe and l.goemon),
+            MN64TransitionFront("GhostToysCastleEntrance", lambda l: (l.chain_pipe and l.goemon) or (l.sasuke and l.jetpack)),
         ],
         room_id=0x142,
         room_default_definitions=[

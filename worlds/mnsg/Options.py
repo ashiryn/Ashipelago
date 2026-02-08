@@ -46,6 +46,30 @@ class ChugokuDoorUnlocked(DefaultOnToggle):
     display_name = "Chugoku Door Unlocked"
 
 
+class PreUnlockedWarps(Toggle):
+    """Pre-unlock all flute warp destinations. You still need to get the flute and Yae to warp."""
+
+    display_name = "Pre-Unlocked Warps"
+
+
+class MajorHintCount(Range):
+    """Number of hints for progression items in the player's world."""
+
+    display_name = "Major Item Hint Count"
+    range_start = 0
+    range_end = 10
+    default = 3
+
+
+class LocationHintCount(Range):
+    """Number of hints for tedious locations in the player's world."""
+
+    display_name = "Location Hint Count"
+    range_start = 0
+    range_end = 10
+    default = 5
+
+
 @dataclass
 class MN64Options(PerGameCommonOptions):
     """Options for MN64"""
@@ -56,4 +80,7 @@ class MN64Options(PerGameCommonOptions):
     randomize_health: HealthInPool
     prevent_oneway_softlocks: PreventOneWaySoftlocks
     chugoku_door_unlocked: ChugokuDoorUnlocked
+    pre_unlocked_warps: PreUnlockedWarps
+    major_hint_count: MajorHintCount
+    location_hint_count: LocationHintCount
     death_link: DeathLink
