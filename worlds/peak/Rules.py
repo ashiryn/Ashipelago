@@ -354,7 +354,7 @@ def apply_rules(world: "PeakWorld"):
                     set_rule(world.get_location(f"Ascent {ascent_num} Completed"),
                              lambda state, asc=ascent_num:
                              state.has("Kiln Access", player) and
-                             state.has("Progressive Ascent", player, asc))
+                             state.has("Progressive Ascent", player, 3))
             elif ascent_num in [6, 7]:
                 if progressive_stamina_enabled:
                     set_rule(world.get_location(f"Ascent {ascent_num} Completed"),
@@ -392,18 +392,31 @@ def apply_rules(world: "PeakWorld"):
                              state.has("Kiln Access", player) and
                              state.has("Progressive Ascent", player, asc))
                 elif ascent_num in [3, 4, 5]:
-                    set_rule(world.get_location(ascent_name),
-                             lambda state, asc=ascent_num:
-                             state.has("Kiln Access", player) and
-                             state.has("Progressive Ascent", player, asc) and
-                             state.has("Progressive Stamina Bar", player, 3))
+                    if progressive_stamina_enabled:
+                        set_rule(world.get_location(ascent_name),
+                                lambda state, asc=ascent_num:
+                                state.has("Kiln Access", player) and
+                                state.has("Progressive Ascent", player, asc) and
+                                state.has("Progressive Stamina Bar", player, 3))
+                    else:
+                        set_rule(world.get_location(ascent_name),
+                                 lambda state, asc=ascent_num:
+                                 state.has("Kiln Access", player) and
+                                 state.has("Progressive Ascent", player, 3))
                 elif ascent_num in [6, 7]:
-                    set_rule(world.get_location(ascent_name),
-                             lambda state, asc=ascent_num:
-                             state.has("Kiln Access", player) and
-                             state.has("Progressive Ascent", player, asc) and
-                             state.has("Progressive Stamina Bar", player, 3) and
-                             state.has("Progressive Endurance", player, 4))
+                    if progressive_stamina_enabled:
+                        set_rule(world.get_location(ascent_name),
+                                lambda state, asc=ascent_num:
+                                state.has("Kiln Access", player) and
+                                state.has("Progressive Ascent", player, asc) and
+                                state.has("Progressive Stamina Bar", player, 3) and
+                                state.has("Progressive Endurance", player, 4))
+                    else:
+                        set_rule(world.get_location(f"Ascent {ascent_num} Completed"),
+                                 lambda state, asc=ascent_num:
+                                 state.has("Kiln Access", player) and
+                                 state.has("Progressive Ascent", player, asc) and
+                                 state.has("Progressive Endurance", player, 4))
             except KeyError:
                 pass
 
@@ -438,17 +451,30 @@ def apply_rules(world: "PeakWorld"):
                                  all(state.has(ascent, player) for ascent in reqs) and
                                  state.has("Progressive Ascent", player, asc))
                     elif scout_ascent in [3, 4, 5]:
-                        set_rule(world.get_location(scout_name),
-                                 lambda state, reqs=required_ascents, asc=scout_ascent:
-                                 all(state.has(ascent, player) for ascent in reqs) and
-                                 state.has("Progressive Ascent", player, asc) and
-                                 state.has("Progressive Stamina Bar", player, 3))
+                        if progressive_stamina_enabled:
+                            set_rule(world.get_location(scout_name),
+                                    lambda state, reqs=required_ascents, asc=scout_ascent:
+                                    all(state.has(ascent, player) for ascent in reqs) and
+                                    state.has("Progressive Ascent", player, asc) and
+                                    state.has("Progressive Stamina Bar", player, 3))
+                        else:
+                            set_rule(world.get_location(scout_name),
+                                     lambda state, reqs=required_ascents, asc=scout_ascent:
+                                     all(state.has(ascent, player) for ascent in reqs) and
+                                     state.has("Progressive Ascent", player, asc))
                     elif scout_ascent in [6, 7]:
-                        set_rule(world.get_location(scout_name),
-                                 lambda state, reqs=required_ascents, asc=scout_ascent:
-                                 all(state.has(ascent, player) for ascent in reqs) and
-                                 state.has("Progressive Ascent", player, asc) and
-                                 state.has("Progressive Stamina Bar", player, 3) and
-                                 state.has("Progressive Endurance", player, 4))
+                        if progressive_stamina_enabled:
+                            set_rule(world.get_location(scout_name),
+                                    lambda state, reqs=required_ascents, asc=scout_ascent:
+                                    all(state.has(ascent, player) for ascent in reqs) and
+                                    state.has("Progressive Ascent", player, asc) and
+                                    state.has("Progressive Stamina Bar", player, 3) and
+                                    state.has("Progressive Endurance", player, 4))
+                        else:
+                            set_rule(world.get_location(scout_name),
+                                     lambda state, reqs=required_ascents, asc=scout_ascent:
+                                     all(state.has(ascent, player) for ascent in reqs) and
+                                     state.has("Progressive Ascent", player, asc) and
+                                     state.has("Progressive Endurance", player, 4))
         except KeyError:
             pass

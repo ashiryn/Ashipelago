@@ -8,12 +8,12 @@ from worlds.generic.Rules import set_rule, add_item_rule
 
 from BaseClasses import CollectionState, Entrance, Item, Region, Tutorial
 
-from . import constants, configurable, client, locations  # noqa: F401
+from . import constants, options, client, locations  # noqa: F401
 
 class Sonic1WebWorld(WebWorld):
     option_groups = [
-        configurable.ring_options,configurable.pow_options,
-        configurable.special_generics, configurable.victory_conditions]
+        options.ring_options,options.pow_options,
+        options.special_generics, options.victory_conditions]
     tutorials = [Tutorial(
         "Sonic 1 Setup Guide", "A short guide to setting up Sonic 1 for Archipelago",
         "English", "setup_en.md", "setup/en", ["Kaithar"])]
@@ -34,10 +34,10 @@ class Sonic1World(World):
     location_name_groups = constants.location_name_groups
 
     settings_key = "sonic1_settings"
-    settings: ClassVar[configurable.Sonic1Settings]
+    settings: ClassVar[options.Sonic1Settings]
 
-    options_dataclass = configurable.Sonic1GameOptions
-    options: configurable.Sonic1GameOptions
+    options_dataclass = options.Sonic1GameOptions
+    options: options.Sonic1GameOptions
     explicit_indirect_conditions = False
 
     tracker_world = {
@@ -269,7 +269,7 @@ class Sonic1World(World):
         self.multiworld.completion_condition[self.player] = lambda state: completion_check(state)
 
     def generate_output(self, output_directory: str) -> None:
-        patch = configurable.Sonic1ProcedurePatch(player=self.player, player_name=self.player_name)
+        patch = options.Sonic1ProcedurePatch(player=self.player, player_name=self.player_name)
         #print(f"{self.player=}, {self.multiworld.player_name[self.player]=}")
         out_file_name = self.multiworld.get_out_file_name_base(self.player)
         patch.write(os.path.join(output_directory, f"{out_file_name}{patch.patch_file_ending}"))

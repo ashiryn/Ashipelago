@@ -3,7 +3,7 @@ import math
 from collections import Counter
 import typing
 
-from BaseClasses import ItemClassification, CollectionState, LocationProgressType
+from BaseClasses import ItemClassification, CollectionState, LocationProgressType, Tutorial
 from worlds.AutoWorld import World, WebWorld
 from .Items import PeakItem, item_table, progression_table, useful_table, filler_table, trap_table, lookup_id_to_name, item_groups
 from .Locations import LOCATION_TABLE, EXCLUDED_LOCATIONS
@@ -12,6 +12,16 @@ from .Rules import apply_rules, TROPICS_LOCATIONS, MESA_LOCATIONS, ALPINE_LOCATI
 
 class PeakWeb(WebWorld):
     theme = "stone"
+    setup_en = Tutorial(
+        tutorial_name="Start Guide",
+        description="A guide to playing Gato Roboto Archipelago",
+        language="English",
+        file_name="guide_en.md",
+        link="guide/en",
+        authors=["Pathkendle", "TheNickRyan"]
+    )
+
+    tutorials = [setup_en]
     option_groups = peak_option_groups
 
 class PeakWorld(World):
@@ -19,6 +29,8 @@ class PeakWorld(World):
     PEAK is a multiplayer climbing game where you and your friends must reach the summit of a procedurally generated mountain.
     """
     game = "PEAK"
+    web = PeakWeb()
+    is_experimental = True
     options_dataclass = PeakOptions
     options: PeakOptions
     topology_present = False

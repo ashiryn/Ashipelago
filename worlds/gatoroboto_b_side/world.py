@@ -11,7 +11,11 @@ from . import items, locations, options, regions, rules, web_world
 import uuid
 
 class GatoRobotoWorld(World):
-
+    """
+    Gato Roboto is a 2D Metroidvania Platformer where you play as a cat named Kiki attempting to save her owner after
+    they crash-land on an alien planet. Collect weapon modules as you explore the various regions of the planet, but
+    beware of irritable creatures and treacherous obstacles, and the dark secrets it holds...
+    """
     game = "Gato Roboto B-Side"
 
     web = web_world.GatoRobotoWebWorld()

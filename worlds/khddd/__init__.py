@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 
 from BaseClasses import Region, Entrance, Tutorial
-from worlds.AutoWorld import World
+from worlds.AutoWorld import World, WebWorld
 from .Items import KHDDDItem, item_data_table, item_table, get_items_by_category, get_items_by_character_category
 from .Locations import KHDDDLocation, location_data_table, location_table, event_location_table, get_locations_by_region
 from .Options import KHDDDOptions
@@ -16,9 +16,25 @@ def launch_client():
 
 components.append(Component("KHDDD Client", "KHDDD Client", func=launch_client, component_type=Type.CLIENT))
 
+
+class KHDDDWebWorld(WebWorld):
+    theme = "grass"
+
+    setup_en = Tutorial(
+        tutorial_name="Start Guide",
+        description="A guide to playing Kingdom Hearts 3D Archipelago",
+        language="English",
+        file_name="setup_en.md",
+        link="setup/en",
+        authors=["Unknown"]
+    )
+
+    tutorials = [setup_en]
+
 class KHDDDWorld(World):
-    """KHDDD is a cool KH game"""
+    """Dream Drop Distance focuses on Sora and Riku's Mark of Mastery exam, foreshadowed in Reconnect. Kingdom Hearts, the secret ending for Kingdom Hearts Re:coded, and its ending will lead fairly directly into Kingdom Hearts III. The plot will also have connections to Kingdom Hearts Birth by Sleep and Kingdom Hearts 358/2 Days. The setting of Dream Drop Distance will again be spread across several worlds; several Kingdom Hearts-original worlds will return, such as Traverse Town, but all of the Disney-based worlds will be entirely new. """
     game = "Kingdom Hearts Dream Drop Distance"
+    web = KHDDDWebWorld()
     options: KHDDDOptions
     options_dataclass = KHDDDOptions
     #location_name_to_id = event_location_table

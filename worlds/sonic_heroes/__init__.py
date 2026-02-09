@@ -28,6 +28,9 @@ class SonicHeroesWeb(WebWorld):
     #option_groups = sonic_heroes_option_groups
 
 class SonicHeroesWorld(World):
+    """
+    Sega's legendary mascot makes his historical multi-platform debut, and this time the adventure comes with several all-new gameplay twists. Control 3 playable characters simultaneously, using Sonic's speed, Knuckles' power, and tails' ability to fly as you explore massive worlds. Team-based gameplay lets you as one of 4 teams for a total of 12 playable characrters, each with their own unique signature moves. Each team boasts multiple special stages with unique missions, as well as their own story using each character's special powers. Sonic and his friends combine forces to battle the ultimate evil.
+    """
     game: ClassVar[str] = SONICHEROES
     web: ClassVar[WebWorld] = SonicHeroesWeb()
     options_dataclass = SonicHeroesOptions

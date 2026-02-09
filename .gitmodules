@@ -274,3 +274,9 @@
 [submodule "ashipelago/pop_trackers/celeste_open_world/src"]
 	path = ashipelago/pop_trackers/celeste_open_world/src
 	url = https://github.com/matthewjaykoster/Celeste-OW-Archipelago-Tracker.git
+[submodule "ashipelago/pop_trackers/gatoroboto/src"]
+	path = ashipelago/pop_trackers/gatoroboto/src
+	url = https://github.com/Ravenmist-Games/Gato-Roboto-AP-Tracker.git
+[submodule "ashipelago/pop_trackers/twilight_princess/src"]
+	path = ashipelago/pop_trackers/twilight_princess/src
+	url = https://github.com/Kizugaya/TPRAP_poptracker.git

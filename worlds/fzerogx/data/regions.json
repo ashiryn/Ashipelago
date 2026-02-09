@@ -203,23 +203,23 @@
   },
   "AX Cup (Standard)": {
     
-		"connects_to": [],
+		"connects_to": [
+          "AX Cup (Expert)"
+        ],
     
 		"requires": "|Progressive AX Cup:2|"
   },
   "AX Cup (Expert)": {
     
 		"connects_to": [
-      "AX Cup (Expert)"
+      "AX Cup (Master)"
     ],
     
 		"requires": "|Progressive AX Cup:3|"
   },
   "AX Cup (Master)": {
     
-		"connects_to": [
-      "AX Cup (Master)"
-    ],
+		"connects_to": [],
     
 		"requires": "|Progressive AX Cup:4|"
   },
