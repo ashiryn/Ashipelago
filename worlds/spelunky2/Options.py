@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+
+from BaseClasses import PlandoOptions
 from Options import Toggle, DefaultOnToggle, Range, Choice, PerGameCommonOptions, DeathLink, ItemSet
 from .enums import ItemName, Spelunky2Goal, Spelunky2ShortcutMode
 from .Items import (item_options, locked_items, powerup_options, equip_options, quest_items, character_options,
@@ -182,11 +184,11 @@ Options ("ALL" can be used for everything):
     valid_keys = locked_items + ["ALL"]
     default = quest_items
 
-    def verify(self, world, player, name="None"):
+    def verify(self, world: type["World"], player_name: str, plando_options: PlandoOptions):
         lowered = [item.lower() for item in self.value]
         if "all" in lowered:
             return
-        super().verify(world, player)
+        super().verify(world, player_name, plando_options)
 
 
 class ItemUpgrades(ItemSet):

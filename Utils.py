@@ -471,7 +471,9 @@ class RestrictedUnpickler(pickle.Unpickler):
         if (module.lower().endswith("options")
                 # Ashipelago customization
                 or ".options." in module.lower()
-                or "games" in module.lower()):
+                or "games" in module.lower()
+                # This exception is for Spelunky 2, its options imports the enum file
+                or "enums" in module.lower()):
             if module == "Options":
                 mod = self.options_module
             else:

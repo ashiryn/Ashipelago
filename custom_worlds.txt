@@ -32,7 +32,7 @@
 "Final Fantasy Tactics Advance"
 "Final Fantasy Tactics Ivalice Island"
 "Final Fantasy V Career Day"
-"Final Fantasy XIV"
+"Final Fantasy XIV Manual_Only"
 "Fire Emblem Sacred Stones"
 "FZeroGX Manual_Only"
 "Gato Roboto"
