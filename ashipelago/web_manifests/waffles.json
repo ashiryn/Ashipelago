@@ -1,9 +1,7 @@
 {
-  "game": "game",
-  "server_version": "0000",
-  "display_name": "",
-  "discord_channel": "",
-  "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/_pack.zip",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/game.apworld",
-  "web_client": ""
+  "game": "SMW: Spicy Mycena Waffles",
+  "server_version": "1.2.6",
+  "display_name": "Super Mario World - Spicy Mycena Waffles",
+  "discord_channel": "https://discord.com/channels/731205301247803413/1435322478024200202",
+  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/waffles.apworld"
 }
