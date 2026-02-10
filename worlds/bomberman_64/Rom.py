@@ -10,7 +10,7 @@ from worlds.Files import APProcedurePatch, APTokenMixin, APTokenTypes
 
 from worlds.AutoWorld import World
 
-NOP = bytearray([0x00,0x00,0x00,0x00])
+NOP = bytes([0x00,0x00,0x00,0x00])
 MD5Hash = "093058ece14c8cc1a887b2087eb5cfe9"
 
 DEATHLINK_ROUTINE = [   
@@ -109,14 +109,14 @@ def write_tokens(world:World, patch:Bomb64ProcedurePatch):
         patch.write_token(APTokenTypes.WRITE, 0xDFFE0 + j, struct.pack("<B", b))
     
     # Write game options
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB0, bytearray([world.options.gold_cards.value]))
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB1, bytearray([world.options.game_goal.value]))
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB2, bytearray([world.options.death_link.value]))
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB3, bytearray([world.options.difficulty.value]))
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB4, bytearray([world.options.enemy_model.value]))
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB5, bytearray([world.options.enemy_ai.value]))
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB6, bytearray([world.options.random_music.value]))
-    patch.write_token(APTokenTypes.WRITE, 0xDFFB7, bytearray([world.options.random_sound.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB0, bytes([world.options.gold_cards.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB1, bytes([world.options.game_goal.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB2, bytes([world.options.death_link.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB3, bytes([world.options.difficulty.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB4, bytes([world.options.enemy_model.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB5, bytes([world.options.enemy_ai.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB6, bytes([world.options.random_music.value]))
+    patch.write_token(APTokenTypes.WRITE, 0xDFFB7, bytes([world.options.random_sound.value]))
     #patch.write_token(APTokenTypes.WRITE, 0xDFFB8, bytearray([world.team]))
 
     # Bypass CIC
@@ -137,16 +137,16 @@ def write_tokens(world:World, patch:Bomb64ProcedurePatch):
     # patch.write_token(APTokenTypes.WRITE, 0x94178, NOP)
 
     # Jump to AP routines
-    patch.write_token(APTokenTypes.WRITE, 0x5EBE4, bytearray([0x08,0x09,0xDE,0xBE, 0x00,0x4E,0x10,0x21])) # J 0x80277AF8
+    patch.write_token(APTokenTypes.WRITE, 0x5EBE4, bytes([0x08,0x09,0xDE,0xBE, 0x00,0x4E,0x10,0x21])) # J 0x80277AF8
     
     # Custom AP routine
     #  Deathlink
-    patch.write_token(APTokenTypes.WRITE, 0x922F8, bytearray(DEATHLINK_ROUTINE))
+    patch.write_token(APTokenTypes.WRITE, 0x922F8, bytes(DEATHLINK_ROUTINE))
 
     #  Remote/Power Checks
 
     #    Power Bomb Jump to routine
-    patch.write_token(APTokenTypes.WRITE, 0x9414C, bytearray([
+    patch.write_token(APTokenTypes.WRITE, 0x9414C, bytes([
         0x3C,0x0D,0x80,0x09, # LUI	T5, 0x8009
         0x25,0xAD,0xEF,0x60, # ADDIU T5, T5, 0xEF60
         0x08,0x09,0xE3,0xAD, # J	0x80278EB4
@@ -154,25 +154,25 @@ def write_tokens(world:World, patch:Bomb64ProcedurePatch):
         0x80,0x6E,0x00,0x00, # LB	T6, 0x0000 (V1)
 
     ]))
-    patch.write_token(APTokenTypes.WRITE, 0x94178, bytearray([0xA0,0x6F,0x00,0x00])) # SB	T7, 0x0000 (V1)
+    patch.write_token(APTokenTypes.WRITE, 0x94178, bytes([0xA0,0x6F,0x00,0x00])) # SB	T7, 0x0000 (V1)
     #    Remote Bomb Jump to routine
-    patch.write_token(APTokenTypes.WRITE, 0x941A4, bytearray([
+    patch.write_token(APTokenTypes.WRITE, 0x941A4, bytes([
         0x3C,0x0B,0x80,0x09, # LUI	T3, 0x8009
         0x25,0x6B,0xEF,0x60, # ADDIU T3, T3, 0xEF60
         0x08,0x09,0xE3,0xA1, # J	0x80278E84
         0x00,0x00,0x00,0x00, # NOP
         0x80,0x6C,0x00,0x00, # LB	T4, 0x0000 (V1)
     ]))
-    patch.write_token(APTokenTypes.WRITE, 0x941D0, bytearray([0xA0,0x6D,0x00,0x00])) # SB	T5, 0x0000 (V1)
+    patch.write_token(APTokenTypes.WRITE, 0x941D0, bytes([0xA0,0x6D,0x00,0x00])) # SB	T5, 0x0000 (V1)
     
-    patch.write_token(APTokenTypes.WRITE, 0x93684, bytearray(REMOTE_POWER_CHECK))
+    patch.write_token(APTokenTypes.WRITE, 0x93684, bytes(REMOTE_POWER_CHECK))
     #patch.write_token(APTokenTypes.WRITE, 0x922A0, bytearray([FREESPACE]))
     
     # Require Power Gloves to Pick up Items
-    patch.write_token(APTokenTypes.WRITE, 0x64820, bytearray([0x8E, 0xA5, 0x16, 0x08]))
+    patch.write_token(APTokenTypes.WRITE, 0x64820, bytes([0x8E, 0xA5, 0x16, 0x08]))
 
     # Requrie Bomb Kick
-    patch.write_token(APTokenTypes.WRITE, 0x64094, bytearray([0x8E, 0xA5, 0x16, 0x0C]))
+    patch.write_token(APTokenTypes.WRITE, 0x64094, bytes([0x8E, 0xA5, 0x16, 0x0C]))
 
     # Enable stage exit
     patch.write_token(APTokenTypes.WRITE, 0x56318, NOP)
@@ -186,16 +186,16 @@ def write_tokens(world:World, patch:Bomb64ProcedurePatch):
     #patch.write_token(APTokenTypes.WRITE, 0x166A5F, bytearray([0x8C, 0x43, 0x01,0x64])),
 
     # Game Crashes without this
-    patch.write_token(APTokenTypes.WRITE, 0x935E0, bytearray([0x10,0x00,0x00,0x04])) # BEZ -> B 0x80278DF4
+    patch.write_token(APTokenTypes.WRITE, 0x935E0, bytes([0x10,0x00,0x00,0x04])) # BEZ -> B 0x80278DF4
 
     # Retain Gold Cards On Level Exit
     patch.write_token(APTokenTypes.WRITE, 0xA4C80, NOP)
 
     # Check for kill requirement at 0xBD000
-    patch.write_token(APTokenTypes.WRITE, 0x9D200, bytearray([0x8C, 0x61, 0x0A, 0xE0])) # LW AT, 0x0AE0 (v1)
-    patch.write_token(APTokenTypes.WRITE, 0x9D208, bytearray([0x00, 0x01, 0x08, 0x40])) # SLL AT, AT, 1
-    patch.write_token(APTokenTypes.WRITE, 0x9D210, bytearray([0x00, 0x01, 0x08, 0x40])) # SLL AT, AT, 1
-    patch.write_token(APTokenTypes.WRITE, 0x9D218, bytearray([0x00, 0x01, 0x08, 0x40])) # SLL AT, AT, 1
+    patch.write_token(APTokenTypes.WRITE, 0x9D200, bytes([0x8C, 0x61, 0x0A, 0xE0])) # LW AT, 0x0AE0 (v1)
+    patch.write_token(APTokenTypes.WRITE, 0x9D208, bytes([0x00, 0x01, 0x08, 0x40])) # SLL AT, AT, 1
+    patch.write_token(APTokenTypes.WRITE, 0x9D210, bytes([0x00, 0x01, 0x08, 0x40])) # SLL AT, AT, 1
+    patch.write_token(APTokenTypes.WRITE, 0x9D218, bytes([0x00, 0x01, 0x08, 0x40])) # SLL AT, AT, 1
 
     # Write patch file
     patch.write_file("token_data.bin", patch.get_token_binary())

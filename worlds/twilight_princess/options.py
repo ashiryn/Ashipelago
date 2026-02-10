@@ -84,7 +84,7 @@ class ShopItemsShuffled(Toggle):
 class HiddenSkillsShuffled(Toggle):
     """
     If enabled, golden wolfs can be progression items.
-    *Hidden skills will always be shuffled into item pool.
+    \\*Hidden skills will always be shuffled into item pool.
     """
 
     display_name = "Hidden Skills"
@@ -249,7 +249,7 @@ class CastleRequirements(Choice):
 
     Note:
     Choosing All Dungeons or Vanilla will force dungeons items to be in Hyrule Castle if Any Dungeon is chosen for them
-        This also removes Hyrule castle from list of dungeons for other of that dungeon item to be in
+    \\*This also removes Hyrule castle from list of dungeons for other of that dungeon item to be in
     """
 
     display_name = "Castle Requirements"
@@ -273,7 +273,7 @@ class PalaceRequirements(Choice):
 
     Note:
     Choosing Vanilla will force dungeons items to be in Palace of Twilight if Any Dungeon is chosen for them
-        This also removes Palace of Twilight from list of dungeons for other of that dungeon item to be in
+    \\*This also removes Palace of Twilight from list of dungeons for other of that dungeon item to be in
     """
 
     display_name = "Palace Requirements"
@@ -294,7 +294,7 @@ class FaronWoodsLogic(Choice):
 
     Note:
     Choosing Closed will force dungeons items to be in Forest Temple if Any Dungeon is chosen for them
-        This also removes Forest Temple from list of dungeons for other of that dungeon item to be in
+    \\*This also removes Forest Temple from list of dungeons for other of that dungeon item to be in
     """
 
     display_name = "Faron Woods Logic"
@@ -518,7 +518,7 @@ class IncreaseSpinnerSpeed(Toggle):
     """
     NON-DEFAULT CHOICE NOT REPRESENTED IN GAME (must self enforce if changed from default)
     If enabled, spinner speed is increased.
-    *Spinner speed not taken into account in logic.
+    \\*Spinner speed not taken into account in logic.
     """
 
     display_name = "Increase Spinner Speed"

@@ -137,7 +137,7 @@ class LocationAdjustments(ExtendedOptionCounter):
     Most names are self-explanatory. However, do note that...
     - **Random operator lines** means "X out of all operator lines are random".
     - **Required shapes multiplier** is in percent, i.e. 100 is default amount of shapes.
-      Also, default amounts are based on the (vanilla) regular scenario.
+    Also, default amounts are based on the (vanilla) regular scenario.
 
     Do note that you have to add enough (minimum) locations to fit all non-filler items
     (filler items are research/platform/blueprint points).
