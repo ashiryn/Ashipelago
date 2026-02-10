@@ -198,7 +198,7 @@ window.addEventListener('load', () => {
     // Loop over all the games
     toggleButtons.forEach((header) => {
       // If the game name includes the search string, display the game. If not, hide it
-      if (header.getAttribute('data-game').toLowerCase().includes(evt.target.value.toLowerCase())) {
+      if (header.getAttribute('data-game-display').toLowerCase().includes(evt.target.value.toLowerCase())) {
         header.style.display = null;
         header.setAttribute('open', '1');
       } else {
@@ -210,7 +210,7 @@ window.addEventListener('load', () => {
     // Also filter favorites section
     const favoriteItems = favoritesList.querySelectorAll('.favorite-game-item');
     favoriteItems.forEach(item => {
-      const gameName = item.getAttribute('data-game').toLowerCase();
+      const gameName = item.getAttribute('data-game-display').toLowerCase();
 
       if (gameName.includes(searchTerm)) {
         item.style.display = null;
