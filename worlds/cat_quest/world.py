@@ -47,4 +47,3 @@ class CatQuestWorld(World):
             "include_quest_reward_exp",
             "include_quest_reward_coins"
         )
-    

@@ -1,12 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from BaseClasses import Item, ItemClassification
 
 from .itemData import fillers, royal_arts, skills, prog_skills, prog_skill_uprades, prog_magic_levels, misc
-if TYPE_CHECKING:
-    from .world import CatQuestWorld
 
 ALL_ITEMS: list[Item] = fillers + royal_arts + skills + prog_skills + prog_skill_uprades + prog_magic_levels + misc
 
@@ -40,10 +36,10 @@ class CatQuestItem(Item):
     game = "Cat Quest"
 
 
-def get_random_filler_item_name(world: CatQuestWorld) -> str:
+def get_random_filler_item_name(world) -> str:
     return ITEM_ID_TO_NAME.get(world.random.randint(1, len(fillers)))
 
-def create_item_with_correct_classification(world: CatQuestWorld, name: str) -> CatQuestItem:
+def create_item_with_correct_classification(world, name: str) -> CatQuestItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
 
     skill_related_item_names = {
@@ -57,7 +53,7 @@ def create_item_with_correct_classification(world: CatQuestWorld, name: str) -> 
 
     return CatQuestItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
-def create_all_items(world: CatQuestWorld) -> None:
+def create_all_items(world) -> None:
     itempool = []
 
     required_items: list[Item] = royal_arts + misc
@@ -90,4 +86,3 @@ def create_all_items(world: CatQuestWorld) -> None:
     itempool += [world.create_filler() for _ in range(needed_number_of_filler_items)]
 
     world.multiworld.itempool += itempool
-    
