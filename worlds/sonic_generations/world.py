@@ -3,8 +3,10 @@ from typing import Any
 
 from worlds.AutoWorld import World
 
-from . import items, locations, regions, rules, web_world, names
+from . import items, locations, regions, rules, names
 from . import options as gens_options
+from .web_world import SonicGensWebWorld
+
 
 class SonicGensWorld(World):
     """
@@ -12,7 +14,7 @@ class SonicGensWorld(World):
     """
 
     game = names.GameName
-
+    web = SonicGensWebWorld()
     options_dataclass = gens_options.SonicGensOptions
     options: gens_options.SonicGensOptions
 
