@@ -2,4 +2,4 @@
 
 ## Required Software
 
-- fzerogx.apworld
+- diablo2.apworld
