@@ -18,4 +18,4 @@ class SonicGensWebWorld(WebWorld):
         ["N/A"]
     )
 
-    tutorial_en = [setup_en]
+    tutorials = [setup_en]
