@@ -4,11 +4,11 @@ from typing import TYPE_CHECKING
 
 from BaseClasses import Item, ItemClassification
 
-#from .itemData import fillers, royal_arts, skills, prog_skills, prog_skill_uprades, prog_magic_levels, misc
+from .itemData import fillers, royal_arts, skills, prog_skills, prog_skill_uprades, prog_magic_levels, misc
 if TYPE_CHECKING:
     from .world import CatQuestWorld
 
-ALL_ITEMS: list[Item] = []# fillers + royal_arts + skills + prog_skills + prog_skill_uprades + prog_magic_levels + misc
+ALL_ITEMS: list[Item] = fillers + royal_arts + skills + prog_skills + prog_skill_uprades + prog_magic_levels + misc
 
 def create_item_name_to_id() -> dict[str, int]:
     item_id_dict = {}

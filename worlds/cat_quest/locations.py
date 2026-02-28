@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 
 from BaseClasses import Location
 
-from . import items
 from .locationData import questLocations, templeLocations, monumentLocations
 
 if TYPE_CHECKING:
