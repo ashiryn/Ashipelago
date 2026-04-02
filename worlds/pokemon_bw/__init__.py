@@ -5,7 +5,7 @@ from typing import ClassVar, Mapping, Any, List
 
 import settings
 from BaseClasses import MultiWorld, Tutorial, Item, Location, Region
-from Options import Option, OptionError
+from Options import Option
 from worlds.AutoWorld import World, WebWorld
 from . import items, locations, options, bizhawk_client, rom, groups, tracker
 from .generate import EncounterEntry, StaticEncounterEntry, TradeEncounterEntry, TrainerPokemonEntry
@@ -38,11 +38,16 @@ class PokemonBWSettings(settings.Group):
         """If enabled, files inside the rom that are changed as part of the patching process (except for base patches)
         will be dumped into a zip file next to the patched rom (for debug purposes)."""
 
+    class EnableArm7ExpansionTest(settings.Bool):
+        """If enabled, the arm7 code file inside the rom gets expanded with dummy code. This is purely for testing
+        purposes and will be deprecated later."""
+
     black_rom: PokemonBlackRomFile = PokemonBlackRomFile(PokemonBlackRomFile.copy_to)
     white_rom: PokemonWhiteRomFile = PokemonWhiteRomFile(PokemonWhiteRomFile.copy_to)
     # remove_collected_field_items: RemoveCollectedFieldItems | bool = False
     enable_encounter_plando: EnableEncounterPlando | bool = True
     dump_patched_files: DumpPatchedFiles | bool = False
+    enable_arm7_expansion_test: EnableArm7ExpansionTest | bool = False
 
 
 class PokemonBWWeb(WebWorld):
@@ -119,11 +124,14 @@ class PokemonBWWorld(World):
         self.static_encounter: dict[str, StaticEncounterEntry] | None = None
         self.trade_encounter: dict[str, TradeEncounterEntry] | None = None
         self.trainer_teams: list[TrainerPokemonEntry] | None = None
-        self.encounter_by_method: dict[str, tuple[list[str], list[int]]] = {}
+        self.encounter_by_method: dict[str, list[int]] = {}
+        self.trade_data: dict[str, tuple[int, int]] = {}
         self.dexsanity_numbers: list[int] = []
         self.regions: dict[str, Region] | None = None
+        self.prepare_text = None
         self.rules_dict: RulesDict | None = None
         self.master_ball_seller_cost: int = 0
+        self.filler_nested: list[str | list] | None = None
 
         self.ut_active: bool = False
         self.location_id_to_alias: dict[int, str] = {}
@@ -131,12 +139,11 @@ class PokemonBWWorld(World):
     def generate_early(self) -> None:
         from .generate.encounter import wild, checklist, static, plando
         from .generate import trainers
+        from .data import version
 
         # Load values from UT if this is a regenerated world
         if hasattr(self.multiworld, "re_gen_passthrough"):
             if self.game in self.multiworld.re_gen_passthrough:
-                from .data import version
-
                 self.ut_active = True
                 re_ge_slot_data: dict[str, Any] = self.multiworld.re_gen_passthrough[self.game]
                 re_gen_options: dict[str, Any] = re_ge_slot_data["options"]
@@ -156,16 +163,6 @@ class PokemonBWWorld(World):
 
         self.random.seed(self.seed)
 
-        # TODO quick bandaid fix, need to fix it in another way later
-        if (
-            # False and
-            self.options.modify_encounter_rates.current_key in ("invasive", "randomized_12") and
-            "Prevent rare encounters" in self.options.randomize_wild_pokemon
-        ):
-            raise OptionError(f"Player {self.player_name}: Modify Encounter Rates choice "
-                              f"\"{self.options.modify_encounter_rates.current_key}\" (currently) not allowed "
-                              f"in combination with \"Prevent rare encounters\" in wild randomization.")
-
         cost_start, cost_end = 999999, -1
         for modifier in self.options.master_ball_seller.value:
             if modifier.casefold().startswith("cost"):
@@ -178,6 +175,7 @@ class PokemonBWWorld(World):
         self.master_ball_seller_cost = self.random.randrange(cost_start, cost_end+1, 500) if cost_end != -1 else 3000
 
         self.regions = locations.get_regions(self)
+        self.prepare_text = version.revert
         self.rules_dict = locations.create_rule_dict(self)
         locations.connect_regions(self)
         locations.cleanup_regions(self.regions)
@@ -191,6 +189,7 @@ class PokemonBWWorld(World):
             self, species_checklist, slots_checklist
         )
         self.encounter_by_method = wild.organize_by_method(self)
+        self.trade_data = wild.organize_trades(self)
         self.trainer_teams = trainers.generate_trainer_teams(self)
 
     def create_item(self, name: str) -> items.PokemonBWItem:
@@ -229,7 +228,7 @@ class PokemonBWWorld(World):
 
     def extend_hint_information(self, hint_data: dict[int, dict[int, str]]):
         hint_data[self.player] = {}
-        locations.extend_dexsanity_hints(self, hint_data)
+        locations.extend_species_hints(self, hint_data)
 
     def generate_output(self, output_directory: str) -> None:
         if self.options.version == "black":
@@ -265,6 +264,8 @@ class PokemonBWWorld(World):
                 "season_control": self.options.season_control.current_key,
                 "adjust_levels": self.options.adjust_levels.value,
                 "modify_encounter_rates": self.options.modify_encounter_rates.value,  # value property because of plando
+                "exp_multiplier": self.options.exp_multiplier.value,
+                "all_pokemon_seen": self.options.all_pokemon_seen.value,
                 "master_ball_seller": self.options.master_ball_seller.value,
                 "modify_item_pool": self.options.modify_item_pool.value,
                 "modify_logic": self.options.modify_logic.value,
@@ -276,11 +277,12 @@ class PokemonBWWorld(World):
             "master_ball_seller_cost": self.master_ball_seller_cost,
             "reusable_tms": self.options.reusable_tms.current_key,
             # Needed for PopTracker
-            "encounter_by_method": {method: lists[1] for method, lists in self.encounter_by_method.items()},
+            "encounter_by_method": self.encounter_by_method,
+            "trade_data": self.trade_data,
             "dexsanity_pokemon": self.dexsanity_numbers,
         }
 
-    def interpret_slot_data(self, slot_data: dict[str, Any]) -> dict[str, Any]:
+    @staticmethod
+    def interpret_slot_data(slot_data: dict[str, Any]) -> dict[str, Any]:
         """Helper function for Universal Tracker"""
-        _ = self  # Damn PyCharm screaming "meThoD mAy bE stAtiC"
         return slot_data
