@@ -1,6 +1,302 @@
 # Changelog
 Versions are sorted in ascending order, i.e. the most recent changes are at the top.
 
+## 0.3.28
+
+- Fixed generation failures resulting from the last update
+
+### Is this version compatible with older multiworld slots and save files?
+Yes, back to 0.3.0, except the pre-release 0.3.99(9)
+However, tracking worlds generated before 0.3.27 might show incorrect Dexsanity logic in UT
+
+## 0.3.27
+
+- Fixed `Experience Multiplier` not automatically being set to the value specified in the yaml
+- Fixed `All Pokémon Seen` not being applied to the save file
+- Tried fixing a rare bug regarding the PopTracker pack and data storage
+- Removed `any_badge`/`any_tm_hm` from `Shuffle Badge Rewards`/`Shuffle TM Rewards`
+  - Old yamls with these choices will instead interpret them as `shuffled`
+- Removed `Prioritize key item locations` from `Modify Logic`
+  - Old yamls with this modifier will just ignore it
+
+### Is this version compatible with older multiworld slots and save files?
+Yes, back to 0.3.0, except the pre-release 0.3.99(9)
+However, tracking worlds generated before 0.3.27 might show incorrect Dexsanity logic in UT
+
+## 0.3.26
+
+- Removed HMs being forgettable due to game breaking bugs resulting from it
+
+### Is this version compatible with older multiworld slots and save files?
+Yes, back to 0.3.0, except the pre-release 0.3.99(9)
+However, tracking worlds generated before 0.3.25 might show incorrect Dexsanity logic in UT
+
+## 0.3.25
+
+- Fixed incorrect logic for getting access to the roamer
+- Fixed unit test failures on GitHub due to the `ndspy` library missing (next try)
+- Tweaked the option description for the `Stats leniency` parameter
+- Fixed the seen count locations not accounting for the `All Pokémon Seen` option
+- Made HM moves forgettable without the move deleter
+- Tweaked the `dump_patched_files` part of the patching process
+
+### Is this version compatible with older multiworld slots and save files?
+Yes, back to 0.3.0, except the pre-release 0.3.99(9)
+However, tracking worlds generated before 0.3.25 might show incorrect Dexsanity logic in UT
+
+## 0.3.24
+
+- Tweaked `Prevent rare encounters` to prevent accidentally merging everything to a single species
+- Fixed the current season (if randomized) always being set to the starting season upon reconnecting
+
+### Is this version compatible with older multiworld slots and save files?
+Yes, back to 0.3.0, except the pre-release 0.3.99(9)
+However, tracking worlds generated before 0.3.24 might show incorrect Dexsanity logic in UT
+
+## 0.3.23
+
+- Fixed hidden items (that are recurring in vanilla) not being checked
+- Fixed crashes in the Pokédex due to missing flags for alternate forms
+- Added `enable_arm7_expansion_test` setting
+
+## 0.3.22
+
+- Fixed backwards compatibility issues due to the new options from 0.3.21
+
+## 0.3.21: "I'm going to make palex and Radis unemployed" update
+
+- Added `Experience Multiplier` option
+  - Also added a menu to the PC in Pokémon Centers to adjust it ingame
+- Added `All Pokémon Seen` option
+- Fixed compatibility issues with AP 0.6.7 release candidates
+- Fixed player names with too many non-Ascii characters leading to a corrupted rom
+- Tweaked the menu structure of the PC in Pokémon Centers
+- Fixed backwards compatibility issues with old yamls
+- Tweaked option descriptions to make them a bit more Options Creator-friendly
+- Reworked `any_badge` and `any_tm_hm` once again
+
+## 0.3.20: "The Pokédex is actually a tracker" update
+
+- Fixed the Pokédex seen count not being sent completely to Poptracker
+- Fixed unit test failures on GitHub due to the `ndspy` library missing
+- Fixed adding an Encounter Plando on a nonexistent slot leading to an error
+- Disabled Johto-exclusive balls from being shuffled into the itempool, as they're unusable ingame
+  - You can still send them via server commands though
+- Changed the trades bitmap for Poptracker to indicate the first time talking to the NPC instead of a finished trade
+- Actually fixed the sandwich minigame on Village Bridge not being repeatable on the same day
+- Fixed the Pokédex areas keeping the vanilla locations even if wild encounters are randomized or plando'd
+- Fixed the Master Ball seller in N's Castle soft locking the game
+
+## 0.3.19: DIG. IS. FINALLY. USABLE. update
+
+- Features/QoL:
+  - Added support for unweighted/weighted lists, `random`, and `random-range-x-y` to `Pokemon Randomization Adjustments`
+  - Made the Pokémon Fan Club chairman also give the 25+ levels check if shown a pokémon with 50+ levels growth
+    - Also made the (not modified) 99 levels reward give both the 25+ levels and 50+ levels checks
+  - Made Running Shoes being enabled right from the start
+    - This is only temporary, as the Running Shoes will be added as an AP item in a later update
+  - Made some in-game text related to roadblock items more accessible to new players
+    - Also added extra dialog for the Dreamyard traffic cone
+  - Removed the once-per-day limitation of the massage lady in Castelia City
+
+- Fixes:
+  - Fixed using Dig outside of battles (with `season_control` being set to any other than `vanilla`) crashing the game
+  - Fixed `any_badge` and `any_tm_hm` choices potentially removing incorrect Item instances form the multiworld itempool
+  - Fixed `any_badge` and `any_tm_hm` choices ignoring local items of other players
+  - Fixed adding `Consider trades` to `Modify Logic` occasionally leading to generation failures
+  - Fixed `Route 6 - Item from scientist for all Deerling forms` not having the extended hint if `Dexsanity` is set to 0
+  - Fixed extended hints being inconsistent with evolutions and trades
+  - Fixed `Nacrene City - Item from waitress in Café Warehouse` also giving the vanilla item
+  - Fixed the Aha quiz price locations sometimes being swapped and sometimes also giving the vanilla item
+  - Fixed sage Ryoku being invisible in Relic Castle B1F castleside if entered before the events in Dragonspiral Tower
+  - Fixed hidden items (that are normally reappearing) being detected by the Dowsing Machine again immediately
+    - However, they will still reappear after some time, which won't be fixed in the foreseeable future
+  - Fixed the evolution items seller in Shopping Mall Nine ending abruptly after selecting "Cancel"
+
+- Other stuff:
+  - Made `Consider trades` require either `Consider evolutions` or wild pokémon being randomized
+  - Renamed `CasefoldOptionSet` to `ToggleSet` and added QoL stuff to it on the development side
+  - Renamed multiple modifiers of some OptionSet options (do note that old yamls do **not** break)
+  - Raised minimum required AP version to 0.6.4
+  - Added bitmaps of statics and trades for Poptracker
+
+## 0.3.18: "But I did beat Cynthia..." update
+
+- Features:
+  - Added "Post-Ghetsis locations" group
+  - Made `Randomize Wild Pokemon` (and similar options) automatically add `Randomize` if any other modifier is added
+  - Added `Rare encounters threshold` key to `Pokémon Randomization Adjustments`, intended for the `Prevent rare encounters` modifier
+    - Also changed the default to 8, in order to prevent conflicts with the `Modify Encounter Rates` option
+  - Added an extended location hint for `Route 6 - Item from scientist for all Deerling forms`
+  - Added `Consider evolutions/static pokemon/trades/form change` to `Modify Logic`
+  - Added places of pre-evolutions and trade requests to extended hint information of Dexsanity checks
+
+- Fixes:
+  - Fixed the flag for beating Cynthia not being correctly sent to Poptracker
+  - Fixed multiple Dexsanity checks being rolled when not possible (or vice versa)
+    - This includes Pansage sometimes not having a check even if `Ensure all obtainable` is included
+  - Fixed `Pokémon Randomization Adjustments` crashing when given an empty dictionary
+  - Fixed Marvelous Bridge being forgotten by the `Adjust levels` option
+  - Fixed incorrect entrance logic of Moor of Icirrus
+
+- Other stuff:
+  - Improved filler item generation performance
+  - Tweaked option descriptions to make them friendlier towards new players
+  - Made `Icirrus City - Item from Pokémon Fan Club chairman for gaining 50 levels` logically require access to Ghetsis
+  - Added static and trade encounters to slot data for Poptracker
+  - Added patch version range accepting
+  - Tweaked error messages for incompatible base ROMs in the patching process
+  - Added the requirement to reach Shopping Mall Nine for stats based evolutions
+  - Removed `Prevent rare encounters` being forbidden with certain `Modify Encounter Rates` values
+    - Instead, an OptionError is now raised when a combination of options leads to not having enough wild 
+      randomization slots for all guaranteed encounters
+  - Added `revert()` and `stack()` to `version.py`
+  - Made the Prof. Juniper Pokédex seen count locations check the national Pokédex instead of the regional one
+    - Also adjusted the apworld's logic to reflect that
+
+## 0.3.17
+
+- Fixed encounter plando failing with certain randomization modifiers
+- Fixed Trial Chamber logic not accounting for the strength boulder
+- Fixed possible softlocks due to level up + move evolutions not accounting for access to the move reminder
+- Removed the Heart Scale requirement for the move reminder
+
+## 0.3.16
+
+- Fixed template yamls not working/being rejected
+
+## 0.3.15
+
+- Fixed custom and randomized encounter rate modification not working
+- Actually fixed Trial Chamber logic
+- Fixed encounter plando not working without randomized wild encounters
+
+## 0.3.14
+
+- Added `Modify Encounter Rates` option
+- Added support for the Poptracker pack
+- Made reaching Nacrene City a logical requirement for friendship evolutions
+- Added form changes for Deerling, Sawsbuck, Rotom, and Deoxys to logic
+- Tweaked the `Adjust Levels` option for some earlier postgame maps
+
+- Fixed manifest missing the container version fields
+- Fixed unit test failures due to `Shuffle Badge Rewards` and `Shuffle TM Rewards` shenanigans
+- Fixed badge and TM/HM locations not being excludable or prioritizable
+- Fixed the Deerling forms location once again
+- Fixed logic of Trial Chamber (including the static Terrakion)
+- Fixed nondeterministic Dexsanity location creation
+- Fixed generation failures for certain combinations of Encounter Plando and randomization modifiers
+- Fixed small miscalculations with `Prevent rare encounters` in wild pokémon randomization
+- Fixed Sneasel not being able to evolve
+- Fixed rom not being automatically updated when it should
+- Fixed incorrect level adjustments
+- Fixed sage Zinzolin appearing twice in Cold Storage under certain circumstances
+- Fixed potentially not having 115 Unovan pokémon available when randomized
+- Fixed weird text box behavior of PC Master Ball seller
+- Removed different Arceus forms
+  - Also fixes a possible softlock due to Challenger's Rock
+
+## 0.3.13
+
+- Made sure there is always at least one fighting type pokémon obtainable (for the challenge rock)
+- Fixed the sandwich minigame on Village Bridge not being repeatable on the same day
+- Fixed beating Ghetsis again triggering post-Alder stuff
+- (Hopefully) fixed not being able to enter the Pokémon League after beating Ghetsis
+- Added setting for dumping patched files (for debug purposes)
+
+## 0.3.12
+
+- Fixed the Wingull grams reward location not working
+- Added an error message for too old AP versions
+
+## 0.3.11
+
+- Added version without UT submaps to release
+- Fixed `Mistralton Cave 3F` locations not appearing on the overworld map in UT
+- Fixed logic of Pinwheel Forest's east side
+- Fixed logic of `Route 8 - Item from Bianca` (this got incorrect logic as a side effect of the previous fix)
+
+## 0.3.10
+
+- Added many more maps and auto-tabbing (@palex00, @Radis7Noir, @Darvitz, darkfire006)
+- Fixed `Moor of Icirrus - Hidden item behind boulder` having incorrect logic
+
+## 0.3.9
+
+- Added a location group for items in Abyssal Ruins
+- Added the `Start Inventory From Pool` option
+- Fixed season-dependant locations not being excluded when wild pokémon are randomized
+- Fixed Wellspring Cave B1F not being considered in `Require Flash` logic modifier (@Seatori)
+- Fixed some gym leaders not being present in their gyms in some situations
+- Fixed sage Zinzolin not appearing in Cold Storage again if first scene was played after Ghetsis
+- Fixed Bianca on route 8 only triggering when standing in front of the bridge gate
+- Fixed the Wingull on route 13 giving the item even without having all grams
+
+## 0.3.8
+
+- Fixed Master Ball sellers not working if the multiworld was generated before 0.3.4
+
+## 0.3.7
+
+- Fixed UT crashing when updating past 0.3.3
+
+## 0.3.6
+
+- Added evolutions to extended Dexsanity hints
+- Fixed "... for seeing x Pokémon" locations to only account for Unovan Pokémon
+  - Also made sure there are always enough species obtainable for them when randomized
+- Fixed Encounter Plando overwriting the slots multiple times, leading to logic errors
+  - Multiple entries overwriting the same slot(s) now displays a warning in world generation
+- Fixed `Route 6 - Item from scientist for all Deerling forms` sometimes being impossible 
+  due to not all Deerling forms being obtainable
+- Fixed the logic of item-based evolutions
+
+## 0.3.5
+
+- Fixed including any Dexsanity location crashing world generation
+- Made automatic rom updating also downgrade newer roms (due to possible conflicts with used flags etc.)
+- Added apworld manifest
+
+## 0.3.4
+
+- Fixed some randomized trainer Pokémon still having the vanilla Pokémon's moves
+- Fixed randomized seasons not being written into save data properly, leading to all seasons being available immediately
+- Fixed enabling multiple Master Ball sellers leading to not all of them being available
+- Made flag and item writing in client more error-proof
+- Fixed `Nacrene City - Item from Lenora after Relic Castle` not showing up in UT
+- Added extended hint information for Dexsanity locations
+- Added location aliases for both Nidorans' Dexsanity locations in UT
+- Fixed Aha prizes having flipped flags
+- Added `Require Flash` to the `modify_logic` option
+- Fixed UT crashing when Encounter Plando was used in generating
+- Some QoL changes for writing the player yaml:
+  - Made all OptionSet options ignore casing
+  - Made Encounter Plando ignore casing for argument names, seasons, and methods
+  - Made Encounter Plando accept `season` and `slot` as alternatives to `seasons` and `slots`
+- Tweaked the Master Ball Seller option:
+  - Removed `:` and `'` characters from modifiers
+    - However, old yamls are still compatible
+  - Added the possibility to add any cost modifier in range of 0 to 30000
+  - Removed throwing an option error if any seller, but no cost is added
+    - No cost modifier now instead defaults to 3000
+- Added error message for patch file being too old
+- Added automatic ROM updates
+- Added details for incorrect ROM header error while patching
+- Fixed the Musharna static encounter not appearing immediately
+- Made the Undella Town Mansion seller snap his prices to 500-steps
+- Changed the dialog of the grunts on route 8 to better reflect how to make them disappear
+- Fixed the evolution items seller in Shopping Mall Nine giving a `???` item when pressing B
+- Added a warning to UT users when tracking with a not entirely compatible apworld version (e.g. due to RNG changes)
+- Added `None` species to Encounter Plando to make a plando entry not put anything into the specified slot(s)
+
+## 0.3.3
+
+This update only ports over the fixes from the 0.2.2 update, which was released right before this:
+- Fixed fossils not being revivable after the Plasma grunts stole the Dragon Skull
+- Fixed Professor Juniper ignoring the national dex for her TM rewards
+- Fixed Professor Juniper not always being in the lab
+- Fixed Champion goal triggering after fighting Ghetsis
+
 ## 0.3.2
 
 - Made option descriptions in template yamls look nicer
@@ -50,6 +346,25 @@ Versions are sorted in ascending order, i.e. the most recent changes are at the 
 - Fixed rare(?) BizHawk client crashing due to slotdata not being received yet
 - Fixed items getting lost after soft resetting after receiving an item after the last save
 - Fixed TM/HM checking NPC not showing up when `pokemon_master` is chosen as the goal
+
+## 0.2.3
+
+- Fixed certain AP-only NPCs not showing up in save files that were affected by a bug from before 0.2.2
+
+## 0.2.2
+
+This update was published after 0.3.2, thereby including a few retroactive bug fixes and QoL things:
+- Fixed rare(?) BizHawk client crashing due to slotdata not being received yet
+- Fixed items getting lost after soft resetting after receiving an item after the last save
+- Made key items and other important items get checked and re-added if not in save file after connecting
+- Fixed TM/HM checking NPC not showing up when pokemon_master is chosen as the goal
+- Changed the item description of a few non-vanilla key items
+
+New fixes:
+- Fixed fossils not being revivable after the Plasma grunts stole the Dragon Skull
+- Fixed Professor Juniper ignoring the national dex for her TM rewards
+- Fixed Professor Juniper not always being in the lab
+- Fixed Champion goal triggering after fighting Ghetsis
 
 ## 0.2.1
 
