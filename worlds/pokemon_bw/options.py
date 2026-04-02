@@ -8,7 +8,7 @@ import settings
 from BaseClasses import PlandoOptions
 from Options import (Choice, PerGameCommonOptions, OptionSet, Range, Toggle,
                      PlandoTexts, OptionError, Option, OptionCounter, StartInventoryPool)
-from worlds.pokemon_bw.data.common_options import CasefoldOptionSet
+from .data.common_options import CasefoldOptionSet, PlandoEncounter
 
 if typing.TYPE_CHECKING:
     from worlds.AutoWorld import World
@@ -230,14 +230,6 @@ class PokemonRandomizationAdjustments(OptionCounter):
         if len(errors) != 0:
             errors = [f"For option {getattr(self, 'display_name', self)} of player {player_name}:"] + errors
             raise OptionError("\n".join(errors))
-
-
-class PlandoEncounter(typing.NamedTuple):
-    map: str
-    seasons: list[str]
-    method: str
-    slots: list[int]
-    species: list[str]
 
 
 class EncounterPlando(Option[list[PlandoEncounter]]):

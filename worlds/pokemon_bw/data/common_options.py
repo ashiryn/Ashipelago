@@ -22,3 +22,10 @@ class CasefoldOptionSet(OptionSet):
                     f"Found unexpected key {', '.join(extra)} in {getattr(self, 'display_name', self)}. "
                     f"Allowed keys: {self._valid_keys}."
                 )
+
+class PlandoEncounter(typing.NamedTuple):
+    map: str
+    seasons: list[str]
+    method: str
+    slots: list[int]
+    species: list[str]
