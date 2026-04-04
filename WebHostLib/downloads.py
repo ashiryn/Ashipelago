@@ -1,10 +1,13 @@
 import json
 import zipfile
 from io import BytesIO
+from pathlib import Path
 
-from flask import send_file, Response, render_template
+from flask import send_file, Response, render_template, redirect, url_for
 from pony.orm import select
 
+import Utils
+from Utils import local_path
 from worlds.Files import AutoPatchRegister
 from . import app, cache
 from .models import Slot, Room, Seed
@@ -116,3 +119,10 @@ def list_yaml_templates():
         if not world.hidden:
             files.append(world_name)
     return render_template("templates.html", files=files)
+
+@app.route("/apworlds/<string:world>")
+def download_ap_world(world):
+    if not Path(local_path(f"build/apworlds/{world}")).exists():
+        return redirect(url_for("games"))
+
+    return send_file(Path(local_path(f"build/apworlds/{world}")), as_attachment=True, download_name=world)

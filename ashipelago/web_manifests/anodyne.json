@@ -1,7 +1,10 @@
 {
   "game": "Anodyne",
   "server_version": "0.5.2",
+  "is_custom": true,
+  "world_authors": ["SephDB", "PixieCatSupreme"],
   "discord_channel": "https://discord.com/channels/731205301247803413/1121290232688545792",
-  "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/anodyne_pack.zip",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/anodyne.apworld"
+  "github": "https://github.com/PixieCatSupreme/ArchipelagoAno",
+  "pop_tracker": "https://github.com/palex00/anodyne-ap-tracker/releases",
+  "ap_world": "anodyne.apworld"
 }

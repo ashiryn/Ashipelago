@@ -57,7 +57,6 @@ class MN64World(World):
     """
 
     game = "Mystical Ninja Starring Goemon"
-    is_experimental = True
     web = MN64Web()
     options_dataclass = MN64Options
     options: MN64Options

@@ -1,8 +1,11 @@
 {
   "game": "A Link Between Worlds",
   "server_version": "0.1.5",
+  "is_custom": true,
+  "world_authors": ["randomsalience"],
   "display_name": "The Legend of Zelda - A Link Between Worlds",
   "discord_channel": "https://discord.com/channels/731205301247803413/1434699603843874846",
-  "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/albw_pack.zip",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/albw.apworld"
+  "github": "https://github.com/randomsalience/albw-archipelago",
+  "pop_tracker": "https://github.com/Legendgreat/albw-ap-poptracker/releases",
+  "ap_world": "albw.apworld"
 }

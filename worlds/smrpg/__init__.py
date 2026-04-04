@@ -51,7 +51,6 @@ class SMRPGWorld(World):
     options_dataclass = SMRPGOptions
     options: SMRPGOptions
     game = "Super Mario RPG Legend of the Seven Stars"
-    is_experimental = True
     topology_present = False
     settings: typing.ClassVar[SMRPGSettings]
     data_version = 1

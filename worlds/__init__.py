@@ -135,8 +135,16 @@ for world_source in world_sources:
                 AutoWorldRegister.world_types[game].web.display_name = ashipelago_manifest.get("display_name", None)
             if "server_version" in ashipelago_manifest:
                 AutoWorldRegister.world_types[game].web.server_version = ashipelago_manifest.get("server_version", None)
+            if "is_custom" in ashipelago_manifest:
+                AutoWorldRegister.world_types[game].web.is_custom = ashipelago_manifest.get("is_custom", None)
+            if "is_experimental" in ashipelago_manifest:
+                AutoWorldRegister.world_types[game].web.is_experimental = ashipelago_manifest.get("is_experimental", None)
+            if "world_authors" in ashipelago_manifest:
+                AutoWorldRegister.world_types[game].web.world_authors = ashipelago_manifest.get("world_authors", None)
             if "discord_channel" in ashipelago_manifest:
                 AutoWorldRegister.world_types[game].web.discord_channel = ashipelago_manifest.get("discord_channel", None)
+            if "github" in ashipelago_manifest:
+                AutoWorldRegister.world_types[game].web.github = ashipelago_manifest.get("github", None)
             if "pop_tracker" in ashipelago_manifest:
                 AutoWorldRegister.world_types[game].web.pop_tracker = ashipelago_manifest.get("pop_tracker", None)
             if "ap_world" in ashipelago_manifest:

@@ -55,10 +55,11 @@
         {% for game_name in worlds | sorted_worlds(worlds=worlds) %}
         {% set world = worlds[game_name] %}
         <details data-game="{{ game_name }}" data-game-display="{{ world.web.display_name | default(game_name) }}">
-            <summary {% if world.is_experimental %} class="h2 experimental"  {% else %} class="h2" {% endif %}>
+            <summary {% if world.web.is_experimental %} class="h2 experimental"  {% else %} class="h2" {% endif %}>
                 {{ world.web.display_name | default(game_name) }}
-                {% if world.is_experimental %} *Experimental*{% endif %}
+                {% if world.web.is_experimental %} *Experimental*{% endif %}
                 <span class="star-icon" data-game-display="{{ world.web.display_name | default(game_name) }}" title="Add to favorites">❤︎</span>
+                {% if world.web.world_authors %}<br />&emsp;&emsp;<span style="font-size: 30px;">{% if world.web.is_custom %}Custom{% else %}Base{% endif %} World maintained by {% for author in world.web.world_authors %}{{ author }}{% if not loop.last %}, {% endif %}{% endfor %}{% endif %} 
             </summary>
             {{ world.__doc__ | default("No description provided.", true) }}<br />
             <a href="{{ url_for("game_info", game=game_name, lang="en") }}">Game Page</a>
@@ -80,17 +81,20 @@
             <a href="{{ world.web.bug_report_page }}">Report a Bug</a>
             {% endif %}
             <br /><a href="{{ world.web.discord_channel }}">Discord Channel</a>
+            {% if world.web.github %}        
+                <span class="link-spacer">|</span>
+                <a href="{{ world.web.github }}">GitHub</a>
+            {% endif %}
             {% if world.web.pop_tracker %}
                 <span class="link-spacer">|</span>
                 <a href="{{ world.web.pop_tracker }}">Pop Tracker</a>
             {% endif %}
-            {% if world.web.ap_world %}
-                <span class="link-spacer">|</span>
-                <a href="{{ world.web.ap_world }}">Version {{ world.web.server_version }}</a>
-            {% endif %}
             {% if world.web.web_client %}
                 <span class="link-spacer">|</span>
                 <a href="{{ world.web.web_client }}">Web Client</a>
+            {% endif %}
+            {% if world.web.ap_world %}
+                <br /><a href="{{ url_for("download_ap_world", world=world.web.ap_world) }}">Version {{ world.web.server_version }}</a>
             {% endif %}
         </details>
         {% endfor %}

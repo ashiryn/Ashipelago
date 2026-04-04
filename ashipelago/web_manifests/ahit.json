@@ -1,5 +1,6 @@
 {
   "game": "A Hat in Time",
+  "world_authors": ["CookieCat45"],
   "discord_channel": "https://discord.com/channels/731205301247803413/1257453386073374842",
-  "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/ahit_pack.zip"
+  "pop_tracker": "https://github.com/Mysteryem/ahit-poptracker/releases"
 }

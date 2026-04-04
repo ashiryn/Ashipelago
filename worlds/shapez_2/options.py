@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from BaseClasses import PlandoOptions
 from Options import Choice, PerGameCommonOptions, OptionSet, OptionError, OptionCounter, StartInventoryPool
-from .data.common_options import CasefoldOptionSet
+from .data.common_options import CasefoldOptionSet, ExtendedOptionCounter
 
 if typing.TYPE_CHECKING:
     from worlds.AutoWorld import World

@@ -2,8 +2,12 @@
   "game": "game",
   "server_version": "0000",
   "display_name": "",
+  "is_custom": true,
+  "is_experimental": false,
+  "world_authors": [""],
   "discord_channel": "",
-  "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/_pack.zip",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/game.apworld",
+  "github": "",
+  "pop_tracker": "_pack.zip",
+  "ap_world": ".apworld",
   "web_client": ""
 }

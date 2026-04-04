@@ -1,7 +1,10 @@
 {
   "game": "Autopelago",
   "server_version": "0.11.12",
+  "is_custom": true,
+  "world_authors": ["airbreather", "skidznet"],
   "discord_channel": "https://discord.com/channels/731205301247803413/1307517897194868768",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/autopelago.apworld",
+  "github": "https://github.com/airbreather/Autopelago",
+  "ap_world": "autopelago.apworld",
   "web_client": "https://autopelago.app/"
 }

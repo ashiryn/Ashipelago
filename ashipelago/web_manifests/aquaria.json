@@ -1,5 +1,6 @@
 {
   "game": "Aquaria",
+  "world_authors": ["tioui"],
   "discord_channel": "https://discord.com/channels/731205301247803413/1257452465272389687",
-  "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/aquaria_pack.zip"
+  "pop_tracker": "https://github.com/palex00/aquaria-ap-tracker/releases"
 }

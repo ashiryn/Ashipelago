@@ -41,7 +41,6 @@ class ManualWorld(World):
     __doc__ = world_description
     game: ClassVar[str] = game_name
     web = world_webworld
-    is_experimental = True
     options_dataclass = manual_options_data
     data_version = 2
     required_client_version = (0, 3, 4)

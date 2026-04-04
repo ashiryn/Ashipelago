@@ -33,7 +33,6 @@ class DarkCloud2World(World):
     """
 
     game: str = "Dark Cloud 2"
-    is_experimental = True
     options_dataclass = DC2Option
     options: DC2Option
     topology_present: bool = True

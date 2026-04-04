@@ -2,6 +2,9 @@
   "game": "APBingo",
   "server_version": "0.1.9",
   "display_name": "AP Bingo",
+  "is_custom": true,
+  "world_authors": ["Cynichill"],
   "discord_channel": "https://discord.com/channels/731205301247803413/1252051532971638784",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/apbingo.apworld"
+  "github": "https://github.com/Cynichill/APBingo",
+  "ap_world": "apbingo.apworld"
 }

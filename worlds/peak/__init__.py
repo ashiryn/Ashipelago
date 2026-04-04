@@ -30,7 +30,6 @@ class PeakWorld(World):
     """
     game = "PEAK"
     web = PeakWeb()
-    is_experimental = True
     options_dataclass = PeakOptions
     options: PeakOptions
     topology_present = False

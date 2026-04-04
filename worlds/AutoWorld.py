@@ -239,17 +239,25 @@ class WebWorld(metaclass=WebWorldRegister):
 
     # Ashipelago customization
     server_version : str
-    """version of the ap world installed on ashipelago"""
+    """Version of the ap world installed on ashipelago"""
     display_name : Optional[str]
     """Overridden name to display on the webhost"""
+    is_custom: bool = False
+    """Whether the world is a custom world or a base world"""
+    is_experimental: bool = False
+    """Whether the ap world is experimental"""
+    world_authors: Optional[List[str]]
+    """The name of the world author/maintainer"""
     discord_channel: Optional[str]
-    """link to the discord channel for the world"""
+    """Link to the discord channel for the world"""
+    github: Optional[str]
+    """Link to the GitHub repository for the world"""
     pop_tracker: Optional[str]
-    """link to the pop tracker for the world"""
+    """Link to the pop tracker for the world"""
     ap_world: Optional[str]
-    """link to the ap world download"""
+    """Link to the ap world download"""
     web_client: Optional[str]
-    """link to a web client for games that are web based"""
+    """Link to a web client for games that are web based"""
 
     options_page: Union[bool, str] = True
     """display a settings page. Can be a link to a specific page or external tool."""
@@ -299,10 +307,6 @@ class WebWorld(metaclass=WebWorldRegister):
 class World(metaclass=AutoWorldRegister):
     """A World object encompasses a game's Items, Locations, Rules and additional data or functionality required.
     A Game should have its own subclass of World in which it defines the required data structures."""
-
-    # Ashipelago customization
-    is_experimental = False
-    """Whether this world is an experimental game."""
 
     options_dataclass: ClassVar[Type[PerGameCommonOptions]] = PerGameCommonOptions
     """link your Options mapping"""

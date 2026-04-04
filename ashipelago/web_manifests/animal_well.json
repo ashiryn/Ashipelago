@@ -1,8 +1,11 @@
 {
   "game": "ANIMAL WELL",
   "server_version": "0.5.3",
+  "is_custom": true,
   "display_name": "Animal Well",
+  "world_authors": ["ScipioWright"],
   "discord_channel": "https://discord.com/channels/731205301247803413/1238463626344665119",
-  "pop_tracker": "https://github.com/ashiryn/Ashipelago/releases/latest/download/animal_well_pack.zip",
-  "ap_world": "https://github.com/ashiryn/Ashipelago/releases/latest/download/animal_well.apworld"
+  "github": "https://github.com/ScipioWright/Archipelago-SW",
+  "pop_tracker": "https://github.com/SporyTike/ANIMAL-WELL-AP-Tracker/releases",
+  "ap_world": "animal_well.apworld"
 }
